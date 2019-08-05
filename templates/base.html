@@ -17,7 +17,81 @@
     {% endblock %}
     
     
+    <!--Added a few components for testing purposes-->
+    
+    <!--Navbar-->
+    <nav>
+        <div class="nav-wrapper">
+            <a href="#" class="brand-logo">Logo</a>
+            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="sass.html">Sass</a></li>
+                <li><a href="badges.html">Components</a></li>
+                <li><a href="collapsible.html">JavaScript</a></li>
+            </ul>
+        </div>
+    </nav>
+    
+    <!--icon-->
+    <i class=" medium material-icons">add</i>
+    
+    <!--buttons-->
+    <a class="waves-effect waves-light btn-small"><i class="material-icons left">cloud</i>button</a>
+    <a class="btn-flat disabled">Button</a>
+    <a class="btn-floating"><i class="material-icons">add</i></a>
+    <a class="btn-floating disabled"><i class="material-icons">add</i></a>
+    
+    <!--Form checkboxes-->
+    <form action="#">
+        <p>
+            <label>
+                <input type="checkbox" />
+                <span>Red</span>
+            </label>
+        </p>
+        <p>
+            <label>
+                <input type="checkbox" checked="checked" />
+                <span>Yellow</span>
+            </label>
+        </p>
+    </form>
+    
+    <!--Collapsible-->
+    <ul class="collapsible">
+        <li>
+            <div class="collapsible-header"><i class="material-icons">filter_drama</i>First</div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">place</i>Second</div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>
+        <li>
+            <div class="collapsible-header"><i class="material-icons">whatshot</i>Third</div>
+            <div class="collapsible-body"><span>Lorem ipsum dolor sit amet.</span></div>
+        </li>
+    </ul>
+    
+    <!--Datepicker-->
+    <div class="input-field col s12">
+        <i class="material-icons prefix">today</i>
+        <input id="due_date" name="due_date" type="text" class="datepicker">
+        <label for="icon_prefix">Due Date</label>
+    </div>
+    
+    
+    
     <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="js/materialize.min.js"></script>
+    <script type="text/javascript" src="static/js/materialize.min.js"></script>
+    
+    <!--Initialization Datepicker-->
+    <script type="text/javascript">
+        document.addEventListener('DOMContentLoaded', function() {
+            var elems_c = document.querySelectorAll('.collapsible');
+            var instances_c = M.Collapsible.init(elems_c);
+            var elems_dp = document.querySelectorAll('.datepicker');
+            var instances_dp = M.Datepicker.init(elems_dp);
+        });
+    </script>
 </body>
 </html>
