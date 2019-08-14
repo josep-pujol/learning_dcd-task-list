@@ -11,13 +11,15 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
-def test_mongodbs():
-    test_coll = mongo.db.testcollection.find()
-    print(str([doc for doc in test_coll]))
+def test():
     return render_template('base.html')
+
+
+@app.route('/tasks')
+def render_tasks_table():
+    return render_template('tasks_table.html', tasks=mongo.db.tasks.find())
+
     
-
-
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),
             port=int(os.environ.get('PORT')),

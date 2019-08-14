@@ -1,0 +1,72 @@
+{% extends 'base.html' %} 
+
+
+{% block dataTablesCSS %}
+    <!--DataTables-->
+    <link rel="stylesheet" type="text/css" href="../static/css/datatables.min.css">
+{% endblock %}
+
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col s12">
+            <h2 class="section-title">Tasks Table</h2>
+
+            <div class="card">
+                <table id='tasks_table' class="highlight dataTable">
+                    <thead>
+                        <tr>
+                            <th>Task</th>
+                            <th>Description</th>
+                            <th>Category</th>
+                            <th>Status</th>
+                            <th>Importance</th>
+                            <th>Due Date</th>
+                            <th class="dataTables-checkbox-column sorting_disabled"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for task in tasks %}
+                        <tr>
+                            <td>{{ task.name }}</td>
+                            <td>{{ task.description }}</td>
+                            <td>{{ task.category }}</td>
+                            <td>{{ task.status }}</td>
+                            <td>{{ task.importance }}</td>
+                            <td>{{ task.due_date }}</td>
+                            <td class="dataTables-checkbox-column">    
+                                <form action="POST">
+                                    <label>
+                                        <input type="checkbox" />
+                                        <span></span>
+                                    </label>
+                                </form>
+                            </td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+{% block dataTableJS %}
+    <script type="text/javascript" src="../static/js/jquery-3.4.1.min.js"></script>
+    <script type="text/javascript" src="../static/js/datatables.min.js"></script>
+    
+    <!--DataTable Init-->
+    <script type="text/javascript">
+    $(document).ready(function() {
+        $('#tasks_table').DataTable( {
+            select: true,
+            "columns": [ null, null, null, null, null, null, { "orderable": false } ],
+            "order": [ 5, "asc" ]    
+        });
+    });
+    </script>
+{% endblock %}
+
