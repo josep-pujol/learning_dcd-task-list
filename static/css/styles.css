@@ -1,0 +1,11 @@
+body {
+    background-color: #f4f4f4;
+}
+
+.menu-dots {
+    color: black;
+}
+
+.dropdown-content li>span>a {
+    color: black; 
+}
