@@ -22,7 +22,7 @@
                             <i class="material-icons prefix">poll</i>
                             <select id="task_category" name="category">
                               <option value="" disabled selected>Choose Category</option>
-                              {% for cat in categories %}
+                              {% for cat in categories | sort(attribute='category') %}
                                   <option value="{{cat.category}}">{{cat.category}}</option>
                               {% endfor %}
                             </select>
@@ -34,7 +34,7 @@
                             <i class="material-icons prefix">poll</i>
                             <select id="task_status" name="status">
                               <option value="" disabled selected>Choose Status</option>
-                              {% for stat in statuses %}
+                              {% for stat in statuses | sort(attribute='order') %}
                                   <option value="{{stat.status}}">{{stat.status}}</option>
                               {% endfor %}
                             </select>
@@ -60,7 +60,7 @@
                             <i class="material-icons prefix">poll</i>
                             <select id="task_importance" name="importance">
                               <option value="" disabled selected>Choose Importance</option>
-                              {% for imp in importances %}
+                              {% for imp in importances | sort(attribute='order') %}
                                   <option value="{{imp.importance}}">{{imp.importance}}</option>
                               {% endfor %}
                             </select>
