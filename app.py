@@ -23,6 +23,12 @@ def render_tasks_table():
                                   {'end_timestamp': None}]}))
 
 
+@app.route('/tasks-done')
+def render_tasks_done_table():
+    return render_template('tasks_done_table.html', 
+        tasks=mongo.db.tasks.find({ '$nor': [{'end_timestamp': ""}, 
+                                  {'end_timestamp': None}]}))
+
 @app.route('/add_task')
 def render_add_task():
     return render_template('add_task.html',
@@ -92,6 +98,7 @@ def mark_task_done():
     print('mark task as completed', res.raw_result)
     
     return redirect(url_for('render_tasks_table'))    
+
 
 
 if __name__ == '__main__':
