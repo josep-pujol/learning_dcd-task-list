@@ -20,16 +20,13 @@ def render_tasks_table():
     return render_template('tasks_table.html', tasks=mongo.db.tasks.find())
 
 
-@app.route('/issue_sign/<task_id>')
-def issue_sign(task_id):
+@app.route('/toggle-issue-sign', methods=['POST', ])
+def toggle_issue_sign():
+    task_id = request.form.get('taskId')
+    print('\n\ntask_id', task_id)
     task = mongo.db.tasks.find_one({'_id': ObjectId(task_id)})
-    return redirect(url_for('render_tasks_table'))
-
-
-@app.route('/toggle_issue_sign/<task_id>', methods=['POST', ])
-def toggle_issue_sign(task_id):
-    task = mongo.db.tasks.find_one({'_id': ObjectId(task_id)})
-    if task.issue == 'issue':
+    print('task', task)
+    if task['issue'] == 'issue':
         res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, {'$set': {'issue': 'no'}})
     else:
         res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, {'$set': {'issue': 'issue'}})

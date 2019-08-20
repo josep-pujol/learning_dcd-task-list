@@ -1,14 +1,9 @@
 {% extends 'base.html' %}
-
-
 {% block css %}
+
 <!--DataTables CSS-->
-<link rel="stylesheet" type="text/css" href="../static/css/material.min.css"> 
-<link rel="stylesheet" type="text/css" href="../static/css/dataTables.material.min.css"> 
-{% endblock %} 
-
-
-{% block content %}
+<link rel="stylesheet" type="text/css" href="../static/css/material.min.css">
+<link rel="stylesheet" type="text/css" href="../static/css/dataTables.material.min.css"> {% endblock %} {% block content %}
 <div class="row">
     <div class="col s12">
         <h2 class="section-title">Tasks Table</h2>
@@ -42,56 +37,52 @@
                                     <span class="new badge red" data-badge-caption="">{{ task.importance }}</span> 
                                 {% elif task.importance == "Medium" %}
                                     <span class="new badge orange" data-badge-caption="">{{ task.importance }}</span> 
-                                {% else %} 
-                                    <span class="new badge blue" data-badge-caption="">{{ task.importance }}</span>
+                                {% else %}
+                                    <span class="new badge blue" data-badge-caption="">{{ task.importance }}</span> 
                                 {% endif %}
                             </td>
                             <td>{{ task.due_date }}</td>
                             <td>
                                 {% if task.issue == 'issue' %}
-                                    <i class="material-icons">error_outline</i>
+                                    <i class="material-icons">error_outline</i> 
                                 {% endif %}
                             </td>
                             <td>
-                              <!-- Dropdown Trigger -->
-                              <a class="dropdown-trigger" href="#" data-target="{{ 'dropdown' ~ loop.index}}">
-                                  <i class="material-icons menu-dots">more_vert</i>
-                              </a>
-                            
-                              <!-- Dropdown Structure -->
-                              <ul id="{{ "dropdown" ~ loop.index}}" class="dropdown-content">
-                                <li><span><a href="#!">Mark Done</a></span></li>
-                                <li><span><a href="#!">Add Notes</a></span></li>
-                                <li><span><a href="{{ url_for('render_edit_task', task_id=task._id) }}">Edit Task</a></span></li>
-                                {% if task.issue == 'issue' %}
-                                    <li><span><a href="#CreateModalForm" data-id="{{ task._id }}" class="modal-trigger">{{ 'Fix Issue' ~ task._id }}</a></li>
-                                {% else %}
-                                    <li><span><a href="#CreateModalForm" data-id="{{ task._id }}" class="modal-trigger">{{ 'Issue' ~ task._id }}</a></span></li>
-                                {%  endif %}
-                              </ul>
+                                <!-- Dropdown Trigger -->
+                                <a class="dropdown-trigger" href="#" data-target="{{ 'dropdown' ~ loop.index }}">
+                                    <i class="material-icons menu-dots">more_vert</i>
+                                </a>
+    
+                                <!-- Dropdown Structure -->
+                                <ul id="{{ 'dropdown' ~ loop.index}}" class="dropdown-content">
+                                    <li><span><a href="#!">Mark Done</a></span></li>
+                                    <li><span><a href="#!">Add Notes</a></span></li>
+                                    <li><span><a href="{{ url_for('render_edit_task', task_id=task._id) }}">Edit Task</a></span></li>
+                                    {% if task.issue == 'issue' %}
+                                        <li><span><a href="#CreateModalForm" data-id="{{ task._id }}" class="modal-trigger">Remove Issue</a></span></li>
+                                    {% else %}
+                                        <li><span><a href="#CreateModalForm" data-id="{{ task._id }}" class="modal-trigger">Add Issue</a></span></li>
+                                    {% endif %}
+                                </ul>
                             </td>
-                        
                         </tr>
                         {% endfor %}
-                        
+
                         <!-- Modal Structure -->
                         <div id="CreateModalForm" class="modal">
                             <div class="modal-content">
-                              <h4>Confirmation</h4>
-                              <p>Are you sure you want to toggle issue sign?</p>
-                            </div>
-                            <div class="modal-body">
-                                <form method="POST" action="">
-                                    <input type="hidden" name="taskId" id="taskId" value=""/>
-                                    <p>Data to display</p>
-                                    <input type="text" name="task_id" id="modal-issue-task_id" value=""/>
-                                </form>
+                                <h4>Confirmation</h4>
+                                <p>Are you sure you want to toggle the issue sign?</p>
                             </div>
                             <div class="modal-footer">
-                              <a href="" class="modal-close">Agree</a>
-                             </div>
+                                <form action="{{ url_for('toggle_issue_sign') }}" method="POST">
+                                    <input type="hidden" name="taskId" id="taskId" value="" />
+                                    <a class="btn-flat modal-close">Cancel</a>
+                                    <button class="btn modal-action modal-close" type="submit" name="action">Confirm</button>
+                                </form>
+                            </div>
                         </div>
-                        
+
                     </tbody>
                 </table>
             </div>
@@ -122,34 +113,30 @@
         var elems_dd = document.querySelectorAll('.dropdown-trigger');
         var instances_dd = M.Dropdown.init(elems_dd);
         var elems_fb = document.querySelectorAll('.fixed-action-btn');
-        var instances_fb = M.FloatingActionButton.init(elems_fb, );
-        // var elems_mod = document.querySelectorAll('.modal');
-        // var instances_mod = M.Modal.init(elems_mod);
-        console.log("Hello world!4");
+        var instances_fb = M.FloatingActionButton.init(elems_fb);
     });
 </script>
 
 <!--DataTables Initialization-->
 <script type="text/javascript">
     $(document).ready(function() {
-        console.log("Hello world!1");
+        $(".modal").modal({
+            dismissible: true
+        });
+        $(".modal-trigger").click(function(){
+            // var taskId = 
+            $(".modal-footer #taskId").val($(this).data("id"));
+            $('#CreateModalForm').modal("open");
+        });
+        
+        // Needs to be placed after the modal script otherwise it doesn't pick up the right row on second page
+        // https://stackoverflow.com/questions/16119693/jquery-data-table-not-working-from-second-page
         $("#tasksTable").DataTable({
             select: true,
             "columns": [null, null, null, null, null, null, { "orderable": false }],
             "order": [5, "asc"]
         });
-        $('.modal').modal({
-            dismissible: true
-        });
-        console.log("Hello world!2");
-        $(".modal-trigger").click(function(){ // Click to only happen on announce links
-            console.log(this)
-            var taskId = $(this).data("id")
-            $(".modal-body #taskId").val(taskId);
-            console.log("Hello world!3");
-            $('#CreateModalForm').modal('open');
-            console.log(this)
-        });
+
     });
 </script>
 
