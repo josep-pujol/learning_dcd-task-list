@@ -15,16 +15,17 @@
 
         <!--Tasks table inside a card-->
         <div class="card-panel">
-            <div class="dataTables_wrapper no-footer">
-                <table id="tasksTable" class="highlight">
+            <div class="dataTables_wrapper">
+                <table id="tasksTable" class="highlight compact">
                     <thead>
                         <tr>
                             <th>Task</th>
-                            <th>Description</th>
+                            <!--<th>Description</th>-->
                             <th>Category</th>
                             <th>Status</th>
                             <th>Importance</th>
                             <th>Due Date</th>
+                            <th>Issues</th>
                             <!--<th class="dataTables-checkbox-column sorting_disabled"></th>-->
                             <th></th>
                         </tr>
@@ -33,15 +34,24 @@
                         {% for task in tasks %}
                         <tr>
                             <td>{{ task.name }}</td>
-                            <td>{{ task.description }}</td>
+                            <!--<td>{{ task.description }}</td>-->
                             <td>{{ task.category }}</td>
                             <td>{{ task.status }}</td>
                             <td>
                                 {% if task.importance == 'High' %}
-                                <span class="new badge red" data-badge-caption="">{{ task.importance }}</span> {% elif task.importance == "Medium" %}
-                                <span class="new badge orange" data-badge-caption="">{{ task.importance }}</span> {% else %} {{ task.importance }} {% endif %}
+                                    <span class="new badge red" data-badge-caption="">{{ task.importance }}</span> 
+                                {% elif task.importance == "Medium" %}
+                                    <span class="new badge orange" data-badge-caption="">{{ task.importance }}</span> 
+                                {% else %} 
+                                    <span class="new badge blue" data-badge-caption="">{{ task.importance }}</span>
+                                {% endif %}
                             </td>
                             <td>{{ task.due_date }}</td>
+                            <td>
+                                {% if task.issue == 'issue' %}
+                                    <i class="material-icons">error_outline</i>
+                                {% endif %}
+                            </td>
                             <td>
                               <!-- Dropdown Trigger -->
                               <a class="dropdown-trigger" href="#" data-target="{{ 'dropdown' ~ loop.index}}">
@@ -50,21 +60,38 @@
                             
                               <!-- Dropdown Structure -->
                               <ul id="{{ "dropdown" ~ loop.index}}" class="dropdown-content">
-                                <li><span><a href="#!">Done!</a></span></li>
-                                <li><span><a href="#!">Add note</a></span></li>
-                                <li><span><a href="{{url_for('render_edit_task',task_id=task._id)}}">Edit</a></span></li>
-                                <li><span><a href="#!">Issue</a></span></li>
-                              <!--<li class="divider"></li>-->
-                              <!--<i class="material-icons">done</i>-->
-                              <!--<i class="material-icons">note_add</i>-->
-                              <!--<i class="material-icons">edit</i>-->
-                              <!--<i class="material-icons">priority_high</i>-->
+                                <li><span><a href="#!">Mark Done</a></span></li>
+                                <li><span><a href="#!">Add Notes</a></span></li>
+                                <li><span><a href="{{ url_for('render_edit_task', task_id=task._id) }}">Edit Task</a></span></li>
+                                {% if task.issue == 'issue' %}
+                                    <li><span><a href="#CreateModalForm" data-id="{{ task._id }}" class="modal-trigger">{{ 'Fix Issue' ~ task._id }}</a></li>
+                                {% else %}
+                                    <li><span><a href="#CreateModalForm" data-id="{{ task._id }}" class="modal-trigger">{{ 'Issue' ~ task._id }}</a></span></li>
+                                {%  endif %}
                               </ul>
                             </td>
                         
                         </tr>
                         {% endfor %}
-
+                        
+                        <!-- Modal Structure -->
+                        <div id="CreateModalForm" class="modal">
+                            <div class="modal-content">
+                              <h4>Confirmation</h4>
+                              <p>Are you sure you want to toggle issue sign?</p>
+                            </div>
+                            <div class="modal-body">
+                                <form method="POST" action="">
+                                    <input type="hidden" name="taskId" id="taskId" value=""/>
+                                    <p>Data to display</p>
+                                    <input type="text" name="task_id" id="modal-issue-task_id" value=""/>
+                                </form>
+                            </div>
+                            <div class="modal-footer">
+                              <a href="" class="modal-close">Agree</a>
+                             </div>
+                        </div>
+                        
                     </tbody>
                 </table>
             </div>
@@ -85,20 +112,9 @@
 
 
 {% block js %}
-<script type="text/javascript" src="../static/js/jquery-3.3.1.min.js"></script>
 <script type="text/javascript" src="../static/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../static/js/dataTables.material.min.js"></script>
 
-<!--DataTables Initialization-->
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#tasksTable").DataTable({
-            select: true,
-            "columns": [null, null, null, null, null, null, { "orderable": false }],
-            "order": [5, "asc"]
-        });
-    });
-</script>
 
 <!--Materialize Initialization-->
 <script type="text/javascript">
@@ -107,6 +123,35 @@
         var instances_dd = M.Dropdown.init(elems_dd);
         var elems_fb = document.querySelectorAll('.fixed-action-btn');
         var instances_fb = M.FloatingActionButton.init(elems_fb, );
+        // var elems_mod = document.querySelectorAll('.modal');
+        // var instances_mod = M.Modal.init(elems_mod);
+        console.log("Hello world!4");
     });
 </script>
+
+<!--DataTables Initialization-->
+<script type="text/javascript">
+    $(document).ready(function() {
+        console.log("Hello world!1");
+        $("#tasksTable").DataTable({
+            select: true,
+            "columns": [null, null, null, null, null, null, { "orderable": false }],
+            "order": [5, "asc"]
+        });
+        $('.modal').modal({
+            dismissible: true
+        });
+        console.log("Hello world!2");
+        $(".modal-trigger").click(function(){ // Click to only happen on announce links
+            console.log(this)
+            var taskId = $(this).data("id")
+            $(".modal-body #taskId").val(taskId);
+            console.log("Hello world!3");
+            $('#CreateModalForm').modal('open');
+            console.log(this)
+        });
+    });
+</script>
+
+
 {% endblock %}

@@ -9,3 +9,7 @@ body {
 .dropdown-content li>span>a {
     color: black; 
 }
+
+.dropdown-content {
+    min-width: fit-content;
+}
