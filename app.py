@@ -1,8 +1,9 @@
-import os
-from flask import Flask, render_template, redirect, request, url_for
-from flask_pymongo import PyMongo
 import bson
 from bson.objectid import ObjectId
+import datetime
+from flask import Flask, render_template, redirect, request, url_for
+from flask_pymongo import PyMongo
+import os
 
 
 app = Flask(__name__)
@@ -17,21 +18,9 @@ def test():
 
 @app.route('/tasks')
 def render_tasks_table():
-    return render_template('tasks_table.html', tasks=mongo.db.tasks.find())
-
-
-@app.route('/toggle-issue-sign', methods=['POST', ])
-def toggle_issue_sign():
-    task_id = request.form.get('taskId')
-    print('\n\ntask_id', task_id)
-    task = mongo.db.tasks.find_one({'_id': ObjectId(task_id)})
-    print('task', task)
-    if task['issue'] == 'issue':
-        res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, {'$set': {'issue': 'no'}})
-    else:
-        res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, {'$set': {'issue': 'issue'}})
-    print('toggled issue sign', res)
-    return redirect(url_for('render_tasks_table'))
+    return render_template('tasks_table.html', 
+        tasks=mongo.db.tasks.find({ '$or': [{'end_timestamp': ""}, 
+                                  {'end_timestamp': None}]}))
 
 
 @app.route('/add_task')
@@ -46,6 +35,7 @@ def render_add_task():
 def insert_new_task():
     tasks = mongo.db.tasks
     tasks.insert_one(request.form.to_dict())
+    
     return redirect(url_for('render_tasks_table'))
 
 
@@ -53,6 +43,7 @@ def insert_new_task():
 def render_edit_task(task_id):
     task = mongo.db.tasks.find_one({'_id': ObjectId(task_id)})
     print('\ntask', task)
+    
     return render_template('edit_task.html',
                            task=task,
                            categories=mongo.db.task_category.find(),
@@ -75,8 +66,32 @@ def update_task(task_id):
                   'end_timestamp': task.get('end_timestamp'),
                   'notes': task.get('notes'),
                   })
+    
     return redirect(url_for('render_tasks_table'))
 
+
+@app.route('/toggle-issue-sign', methods=['POST', ])
+def toggle_issue_sign():
+    task_id = request.form.get('taskId')
+    task = mongo.db.tasks.find_one({'_id': ObjectId(task_id)})
+    if task.get('issue') == 'issue':
+        mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
+            {'$set': {'issue': 'no'}})
+    else:
+        mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
+            {'$set': {'issue': 'issue'}})
+    
+    return redirect(url_for('render_tasks_table'))
+
+
+@app.route('/mark-task-done', methods=['POST', ])
+def mark_task_done():
+    task_id = request.form.get('taskId')
+    res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
+        {'$set': {'end_timestamp': datetime.datetime.utcnow()}})
+    print('mark task as completed', res.raw_result)
+    
+    return redirect(url_for('render_tasks_table'))    
 
 
 if __name__ == '__main__':
