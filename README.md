@@ -1,14 +1,56 @@
-         ___        ______     ____ _                 _  ___  
-        / \ \      / / ___|   / ___| | ___  _   _  __| |/ _ \ 
-       / _ \ \ /\ / /\___ \  | |   | |/ _ \| | | |/ _` | (_) |
-      / ___ \ V  V /  ___) | | |___| | (_) | |_| | (_| |\__, |
-     /_/   \_\_/\_/  |____/   \____|_|\___/ \__,_|\__,_|  /_/ 
- ----------------------------------------------------------------- 
+# Work Force Management
+
+[![Build Status](https://travis-ci.com/josep-pujol/learning_dcd-workforce-management.svg?token=mpvYNnPLPqbCpUvpUExD&branch=master)](https://travis-ci.com/josep-pujol/learning_dcd-workforce-management)
+
+This repo contains a solution code for the milestone project of the *Data Centric Development* module for Code Institute.
 
 
-Hi there! Welcome to AWS Cloud9!
+Heroku url
+The site can be viewed [HERE](https://dcd-workforce-management.herokuapp.com/)
 
-To get started, create some files, play with the terminal,
-or visit https://docs.aws.amazon.com/console/cloud9/ for our documentation.
 
-Happy coding!
+
+## Technologies Used
+
+### Some the tech used includes:
+
+- **HTML**, **CSS** and **Javascript**
+    - Base languages used to create the site templates
+- [Materialize](https://materializecss.com)
+    - Used **Materialize 1.0.0** for a responsive layout and styling
+- [DataTables](https://datatables.net)
+    - Plugin for **jQuery** that adds interactive features to data stored in an **HTML** table
+- [JQuery](https://jquery.com)
+    - **JQuery** as a dependency for **DataTables**
+- [Github](https://github.com)
+    - Used as repository of the project 
+- [Heroku](https://heroku.com)
+    - To deploy the project
+- [Travis](https://travis-ci.org/)
+    - For testing
+
+
+
+## Testing
+- Unit tests with  include:
+   
+- All code used on this site has been manually tested to ensure everything is working as expected. Some tests include:
+    - site responsiveness
+    - functionality of the currency converter
+        - different currencies 
+        - different amounts
+        - invalid amounts
+    - mouse hovering over the Multiline chart to display dynamic labels including: currency, exchange rate and date
+- Site viewed and tested in the following browsers:
+  - Google Chrome
+  - Microsoft Edge
+  - Mozilla Firefox
+
+
+
+## Contributing
+ 
+### Getting the code up and running
+
+
+## Credits

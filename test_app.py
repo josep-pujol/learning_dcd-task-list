@@ -2,7 +2,7 @@ import app
 import unittest
 
 
-class ApTestCase(unittest.TestCase):
+class AppTestCase(unittest.TestCase):
 
     def setUp(self):
         app.app.testing = True
