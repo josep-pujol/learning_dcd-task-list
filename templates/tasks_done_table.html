@@ -26,11 +26,10 @@
                             <th>Task</th>
                             <th>Description</th>
                             <th>Category</th>
-                            <th>Status</th>
                             <th>Importance</th>
                             <th>Issues</th>
                             <th>Due Date</th>
-                            <th>Completed on</th>
+                            <th>Completed Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -39,7 +38,6 @@
                             <td>{{ task.name }}</td>
                             <td>{{ task.description }}</td>
                             <td>{{ task.category }}</td>
-                            <td>{{ task.status }}</td>
                             <td>
                                 {% if task.importance == 'High' %}
                                     <span class="new badge red" data-badge-caption="">{{ task.importance }}</span> 
@@ -55,7 +53,7 @@
                                 {% endif %}
                             </td>
                             <td>{{ task.due_date }}</td>
-                            <td>{{ task.end_timestamp.strftime('%b %d, %Y') }}</td>
+                            <td>{{ task.completed_date }}</td>
                         </tr>
                         {% endfor %}
 
@@ -86,8 +84,8 @@
     $(document).ready(function() {
         $("#tasksTable").DataTable({
             select: true,
-            "columns": [null, null, null, null, null, null, null, { "orderable": false }],
-            "order": [6, "asc"]
+            "columns": [null, null, null, null, null, null, { "orderable": false }],
+            "order": [5, "asc"]
         });
     });
 </script>

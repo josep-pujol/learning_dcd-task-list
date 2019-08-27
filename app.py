@@ -68,8 +68,6 @@ def update_task(task_id):
                   'status': request.form.get('status'),
                   'importance': request.form.get('importance'),
                   'due_date': request.form.get('due_date'),
-                  'start_timestamp': task.get('start_timestamp'),
-                  'end_timestamp': task.get('end_timestamp'),
                   'notes': task.get('notes'),
                   })
     
@@ -94,7 +92,7 @@ def toggle_issue_sign():
 def mark_task_done():
     task_id = request.form.get('taskId')
     res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
-        {'$set': {'end_timestamp': datetime.datetime.utcnow()}})
+        {'$set': {'completed_date': datetime.datetime.utcnow().strftime('%b %d, %Y')}})
     print('mark task as completed', res.raw_result)
     
     return redirect(url_for('render_tasks_table'))    
