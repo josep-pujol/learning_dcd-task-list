@@ -47,7 +47,7 @@ def insert_new_task():
 
 @app.route('/edit_task/<task_id>')
 def render_edit_task(task_id):
-    task = mongo.db.tasks.find_one({'_id': ObjectId(task_id)})
+    task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
     print('\ntask', task)
     
     return render_template('edit_task.html',
@@ -60,7 +60,7 @@ def render_edit_task(task_id):
 @app.route('/update_task/<task_id>', methods=['POST',])
 def update_task(task_id):
     tasks = mongo.db.tasks
-    task = mongo.db.tasks.find_one({'_id': ObjectId(task_id)})
+    task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
     tasks.update({'_id': ObjectId(task_id)},
                  {'name': request.form.get('name'),
                   'category': request.form.get('category'),
@@ -77,7 +77,7 @@ def update_task(task_id):
 @app.route('/toggle-issue-sign', methods=['POST', ])
 def toggle_issue_sign():
     task_id = request.form.get('taskId')
-    task = mongo.db.tasks.find_one({'_id': ObjectId(task_id)})
+    task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
     if task.get('issue') == 'issue':
         mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
             {'$set': {'issue': 'no'}})
