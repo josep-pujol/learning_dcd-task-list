@@ -26,8 +26,9 @@ def render_tasks_table():
 @app.route('/tasks-done')
 def render_tasks_done_table():
     return render_template('tasks_done_table.html', 
-        tasks=mongo.db.tasks.find({'$no': [{'end_timestamp': ""}, 
+        tasks=mongo.db.tasks.find({'$nor': [{'end_timestamp': ""}, 
                                   {'end_timestamp': None}]}))
+
 
 @app.route('/add_task')
 def render_add_task():
