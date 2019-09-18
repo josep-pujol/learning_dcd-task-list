@@ -41,6 +41,7 @@ def render_add_task():
 @app.route('/insert_new_task', methods=['POST', ])
 def insert_new_task():
     tasks = mongo.db.tasks
+    print(request.form.to_dict())
     tasks.insert_one(request.form.to_dict())
     
     return redirect(url_for('render_tasks_table'))
@@ -80,12 +81,12 @@ def update_task(task_id):
 def toggle_issue_sign():
     task_id = request.form.get('taskId')
     task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
-    if task.get('issue') == 'issue':
+    if task.get('issue'):
         mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
-            {'$set': {'issue': None}})
+            {'$set': {'issue': False}})
     else:
         mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
-            {'$set': {'issue': 'issue'}})
+            {'$set': {'issue': True}})
     
     return redirect(url_for('render_tasks_table'))
 
