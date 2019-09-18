@@ -1,5 +1,6 @@
 from bson.objectid import ObjectId
 import datetime
+import time
 from run import app, mongo
 import unittest
 import json
@@ -8,7 +9,7 @@ existing_collections = ['task_importance', 'tasks', 'task_category',
                         'task_status']
 
 time_stamp_obj = datetime.datetime.utcnow()
-dummy_task = {'name': 'Testing Insert Task',
+dummy_task = {'name': 'Testing Task',
              'category': 'Test Category',
              'description': 'Test Description' + str(time_stamp_obj),
              'status': 'Test Status',
@@ -84,9 +85,8 @@ class TestAppCase(unittest.TestCase):
 
 
     def test_render_edit_task(self):
-        dummy_task_obj = mongo.db.tasks.insert_one(self.dummy_task)
-        dummy_task_id = dummy_task_obj.inserted_id
-        print(dummy_task_id)
+        dummy_task_id = mongo.db.tasks.insert_one(self.dummy_task).inserted_id
+        #print(dummy_task_id)
         res = self.client.get(f'/edit_task/{dummy_task_id}',
                               follow_redirects=True)
         res_text = res.get_data(as_text=True)     
@@ -97,20 +97,47 @@ class TestAppCase(unittest.TestCase):
 
     def test_update_task(self):
         dummy_task_id = mongo.db.tasks.insert_one(self.dummy_task).inserted_id
-        print(dummy_task_id)
+        #print(dummy_task_id)
         self.dummy_task['name'] = 'Testing Update Task'
         res = self.client.post(f'/update_task/{dummy_task_id}',
                                data=self.dummy_task,
                                follow_redirects=True)
         updated_dummy_task = mongo.db.tasks.find_one(
                                     {'_id': ObjectId(dummy_task_id)})
-        print(updated_dummy_task, updated_dummy_task.get('name'))
+        #print(updated_dummy_task, updated_dummy_task.get('name'))
         
         self.assertEqual(res.status_code, 200)
         self.assertEqual(self.dummy_task['name'], 
                          updated_dummy_task.get('name'))
         
+
+    def test_toggle_issue_sign(self):
+        dummy_task_id = mongo.db.tasks.insert_one(self.dummy_task).inserted_id
+        print('\n\n', dummy_task_id)
+        data={'taskId': dummy_task_id}
+        self.dummy_task['name'] = 'Testing Update Task'
         
+        # Add sign
+        res = self.client.post('/toggle-issue-sign',
+                               data=data,
+                               follow_redirects=True)
+        dummy_task_issue = mongo.db.tasks.find_one(
+                                    {'_id': ObjectId(dummy_task_id)})
+        print(dummy_task_issue, dummy_task_issue.get('issue'))
+        
+        self.assertEqual(res.status_code, 200)
+        self.assertEqual(dummy_task_issue.get('issue'), 'issue')        
+        
+        # Remove sign
+        res = self.client.post('/toggle-issue-sign',
+                               data=data,
+                               follow_redirects=True)
+        dummy_task_no_issue = mongo.db.tasks.find_one(
+                                    {'_id': ObjectId(dummy_task_id)})
+
+        self.assertEqual(res.status_code, 200)
+        self.assertIsNone(dummy_task_no_issue.get('issue')) 
+
 
 if __name__ == '__main__':
     unittest.main()

@@ -82,7 +82,7 @@ def toggle_issue_sign():
     task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
     if task.get('issue') == 'issue':
         mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
-            {'$set': {'issue': 'no'}})
+            {'$set': {'issue': None}})
     else:
         mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
             {'$set': {'issue': 'issue'}})
