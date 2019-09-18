@@ -62,15 +62,16 @@ def render_edit_task(task_id):
 def update_task(task_id):
     tasks = mongo.db.tasks
     task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
-    tasks.update({'_id': ObjectId(task_id)},
-                 {'name': request.form.get('name'),
-                  'category': request.form.get('category'),
-                  'description': request.form.get('description'),
-                  'status': request.form.get('status'),
-                  'importance': request.form.get('importance'),
-                  'due_date': request.form.get('due_date'),
-                  'notes': task.get('notes'),
-                  })
+    tasks.update_one({'_id': ObjectId(task_id)},
+                     {'$set': {
+                         'name': request.form.get('name'),
+                         'category': request.form.get('category'),
+                         'description': request.form.get('description'),
+                         'status': request.form.get('status'),
+                         'importance': request.form.get('importance'),
+                         'due_date': request.form.get('due_date'),
+                         'notes': task.get('notes'),
+                     }})
     
     return redirect(url_for('render_tasks_table'))
 
