@@ -2,6 +2,14 @@ body {
     background-color: #f4f4f4;
 }
 
+.card-panel {
+    margin-top: 1rem;    
+}
+
+.section-title {
+    margin-top: 0px;
+}
+
 .menu-dots {
     color: black;
 }

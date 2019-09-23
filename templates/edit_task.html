@@ -1,26 +1,26 @@
-{% extends 'base.html' %} 
-
-
-{% block content %}
+{% extends 'base.html' %} {% block content %}
 <div class="row">
     <div class="col s12">
-        <h2 class="section-title">Edit Task</h2>
 
         <!--Add Task card-->
         <div class="card-panel">
             <div class="row">
-                <form action="{{ url_for('update_task', task_id=task._id) }}" method="POST" class="col s12">
-                    <div class="row">
+                <form class="formValidate col s12" id="formValidate" method="POST" action="{{ url_for('update_task', task_id=task._id) }}">
+                    <div class="row col s12">
+                        <h3 class="section-title">Edit Task</h3>
+                    </div>
+                    <div class="row col s12">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">assignment</i>
-                            <input id="task_name" name="name" type="text" class="validate" value="{{ task.name }}">
-                            <label for="icon_prefix">Task Name</label>
+                            <input id="task_name" name="task_name" type="text" class="validate" required value="{{ task.name }}">
+                            <label for="task_name">Task Name*</label>
+                            <span class="helper-text" data-error="This field is required" data-success="Good!"></span>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row col s12">
                         <div class="input-field col s12">
-                            <i class="material-icons prefix">poll</i>
-                            <select id="task_category" name="category">
+                            <i class="material-icons prefix">list</i>
+                            <select id="task_category" name="task_category">
                               <option value="" disabled selected>Choose Category</option>
                               {% for cat in categories | sort(attribute='category') %}
                                   {% if cat.category == task.category %}
@@ -33,10 +33,10 @@
                             <label>Task Category</label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row col s12">
                         <div class="input-field col s12">
-                            <i class="material-icons prefix">poll</i>
-                            <select id="task_status" name="status">
+                            <i class="material-icons prefix">assignment_turned_in</i>
+                            <select id="task_status" name="task_status">
                               <option value="" disabled selected>Choose Status</option>
                               {% for stat in statuses | sort(attribute='order') %}
                                   {% if stat.status == task.status %}
@@ -49,24 +49,24 @@
                             <label>Status</label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row col s12">
                         <div class="input-field col s12">
-                            <i class="material-icons prefix">subject</i>
-                            <textarea id="task_description" name="description" class="materialize-textarea">{{ task.description }}</textarea>
+                            <i class="material-icons prefix">comment</i>
+                            <textarea id="task_description" name="task_description" class="materialize-textarea">{{ task.description }}</textarea>
                             <label for="icon_telephone">Description</label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row col s12">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">today</i>
-                            <input id="task_due_date" name="due_date" type="text" class="datepicker" value="{{ task.due_date }}">
+                            <input id="task_due_date" name="task_due_date" type="text" class="datepicker" value="{{ task.due_date }}">
                             <label for="icon_prefix">Due Date</label>
                         </div>
                     </div>
-                    <div class="row">
+                    <div class="row col s12">
                         <div class="input-field col s12">
-                            <i class="material-icons prefix">poll</i>
-                            <select id="task_importance" name="importance">
+                            <i class="material-icons prefix">bookmarks</i>
+                            <select id="task_importance" name="task_importance">
                               <option value="" disabled selected>Choose Importance</option>
                               {% for imp in importances | sort(attribute='order') %}
                                   {% if imp.importance == task.importance %}
@@ -79,9 +79,9 @@
                             <label>Importance</label>
                         </div>
                     </div>
-                    <div class="row">
-                        <button class="btn waves-effect waves-light" type="submit" name="action">Update Task
-                            <i class="material-icons right">playlist_add</i>
+                    <div class="row col s12">
+                        <button class="btn waves-effect waves-light right" type="submit" name="action">Update Task
+                            <i class="material-icons right">edit</i>
                         </button>
                     </div>
                 </form>
@@ -90,18 +90,23 @@
     </div>
 </div>
 
-{% endblock %}
+{% endblock %} 
 
 
-<!--Materialize Initialization-->
+
 {% block js %}
+
+    <!--Materialize Initialization-->
     <script type="text/javascript">
-      document.addEventListener('DOMContentLoaded', function(dp_options) {
-        var elems_sel = document.querySelectorAll('select');
-        var instances_sel = M.FormSelect.init(elems_sel);
-        var elems_dp = document.querySelectorAll('.datepicker');
-        var instances_dp = M.Datepicker.init(elems_dp);
-      });
+        const options_dp = {showDaysInNextAndPreviousMonths: true,
+                            yearRange: 15,
+                            firstDay: 1,
+                            showClearBtn: true,
+                            };
+        $(document).ready(function() {
+            $('select').formSelect();
+            $('.datepicker').datepicker(options_dp);
+        });
     </script>
 
 {% endblock %}

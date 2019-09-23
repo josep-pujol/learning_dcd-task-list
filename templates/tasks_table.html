@@ -71,7 +71,7 @@
                                     <li><span><a href="{{ url_for('render_edit_task', task_id=task._id) }}">Edit Task</a></span></li>
                                     
                                     <!-- Issue Sign Modal Trigger -->
-                                    {% if task.issue == 'issue' %}
+                                    {% if task.issue %}
                                         <li><span><a href="#CreateIssuesModalForm" data-id="{{ task._id }}" class="triggerIssuesModal">Remove Issue</a></span></li>
                                     {% else %}
                                         <li><span><a href="#CreateIssuesModalForm" data-id="{{ task._id }}" class="triggerIssuesModal">Add Issue</a></span></li>
