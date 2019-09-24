@@ -1,23 +1,56 @@
-body {
+body 
+{
     background-color: #f4f4f4;
 }
 
-.card-panel {
+.card-panel 
+{
     margin-top: 1rem;    
 }
 
-.section-title {
+.section-title 
+{
     margin-top: 0px;
 }
 
-.menu-dots {
+.menu-dots 
+{
     color: black;
 }
 
-.dropdown-content li>span>a {
+.dropdown-content li>span>a 
+{
     color: black; 
 }
 
-.dropdown-content {
+.dropdown-content 
+{
     min-width: fit-content;
+}
+
+.dataTables_length {
+    margin: 0 auto;  
+}
+
+.dataTables_length label
+{
+    display: inline-block;
+    font-size: 14px;
+}
+
+.dataTables_length label select
+{
+    width: auto;
+    height: auto;
+    padding: 5px;
+
+    border: none;
+    border-bottom: 1px solid #bdbdbd;
+    border-radius: 2px;
+    background-color: transparent; 
+
+    font-size: 14px;
+    
+    display: inline-block;
+    
 }
