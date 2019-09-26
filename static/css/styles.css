@@ -5,12 +5,17 @@ body
 
 .card-panel 
 {
-    margin-top: 1rem;    
+    margin-top: 1.5rem;    
 }
 
 .section-title 
 {
-    margin-top: 0px;
+    margin-top: 0.5rem;
+}
+
+.mdl-cell 
+{
+    margin-top: 0;    
 }
 
 .menu-dots 
@@ -29,13 +34,15 @@ body
 }
 
 .dataTables_length {
-    margin: 0 auto;  
+    height: 100%;  
+    display: flex;
+    align-items: flex-end;
 }
 
 .dataTables_length label
 {
-    display: inline-block;
     font-size: 14px;
+    color: black;
 }
 
 .dataTables_length label select
