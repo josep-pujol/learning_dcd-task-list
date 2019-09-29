@@ -73,6 +73,33 @@ body
     min-width: 10000px;
 }
 
+.textRight
+{
+    text-align: right;
+}
+
+.textCenter
+{
+    text-align: center;
+}
+
+
+/* Action Button */
+
+.fixed-action-btn
+{
+    bottom: 2.75em; 
+    right: 2.75em;
+}
+
+@media (max-width: 990px)
+{
+  .fixed-action-btn {
+    bottom: 1.25em; 
+    right: 1.25em;
+  }
+}
+
 
 /* Drop down menu in each row */
 
