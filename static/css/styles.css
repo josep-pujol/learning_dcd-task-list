@@ -62,7 +62,7 @@ body
     padding-right: 1em;
 }
 
-.dueDateStyle 
+.dateColStyle 
 {
     min-width: 110px;
     white-space: nowrap;
@@ -71,6 +71,11 @@ body
 .descriptionStyle
 {
     min-width: 10000px;
+}
+
+.descriptionStyle2
+{
+    min-width: 300px;
 }
 
 .textRight

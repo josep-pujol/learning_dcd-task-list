@@ -19,15 +19,13 @@ def render_home_page():
 @app.route('/tasks')
 def render_tasks_table():
     return render_template('tasks_table.html', 
-        tasks=mongo.db.tasks.find({'$or': [{'end_timestamp': ""}, 
-                                  {'end_timestamp': None}]}))
+        tasks=mongo.db.tasks.find({'status': {'$ne': 'Completed'}}))
 
 
 @app.route('/tasks-done')
 def render_tasks_done_table():
     return render_template('tasks_done_table.html', 
-        tasks=mongo.db.tasks.find({'$nor': [{'end_timestamp': ""}, 
-                                  {'end_timestamp': None}]}))
+        tasks=mongo.db.tasks.find({'status': 'Completed'}))
 
 
 @app.route('/add_task')

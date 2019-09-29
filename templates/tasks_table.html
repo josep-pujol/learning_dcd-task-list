@@ -29,7 +29,7 @@
                             <th>Category</th>
                             <th class="textRight">Status</th>
                             <th class="textRight">Importance</th>
-                            <th class="dueDateStyle">Due Date</th>
+                            <th class="dateColStyle">Due Date</th>
                             <th class="textRight">Issues</th>
                             <th></th>
                             <th>Description</th>
@@ -52,7 +52,7 @@
                                     <span class="new badge grey" data-badge-caption="">none</span> 
                                 {% endif %}
                             </td>
-                            <td class="dueDateStyle">{{ task.due_date }}</td>
+                            <td class="dateColStyle">{{ task.due_date }}</td>
                             <td class="textCenter">
                                 {% if task.issue %}
                                     <i class="material-icons">error_outline</i> 
@@ -118,7 +118,6 @@
                         </div>
                         
                         <!-- END MODALS -->
-                        centerText
                         
                     </tbody>
                 </table>
@@ -199,9 +198,7 @@
                 { responsivePriority: 7, targets: 1 },
                 { responsivePriority: 8, targets: 7 },
                 ]
-            
         });
-
     });
 </script>
 {% endblock %}

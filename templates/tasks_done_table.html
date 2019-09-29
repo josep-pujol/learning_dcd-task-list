@@ -4,21 +4,23 @@
 {% block css %}
 <!--DataTables CSS-->
 <link rel="stylesheet" type="text/css" href="../static/css/material.min.css">
-<link rel="stylesheet" type="text/css" href="../static/css/dataTables.material.min.css"> 
+<link rel="stylesheet" type="text/css" href="../static/css/dataTables.material.min.css">
+<link rel="stylesheet" type="text/css" href="../static/css/responsive.dataTables.min.css">
 {% endblock %} 
 
 
 {% block content %}
+<!-- Main body-->
 <div class="row">
     <div class="col s12">
-        <h2 class="section-title">Completed Tasks</h2>
 
         <!--Table inside a card-->
         <div class="card-panel">
-
+            <div class="row col s12">
+                <h2 class="section-title">Completed Tasks</h2>
+            </div>
             
             <!-- TABLE -->
-
             <div class="dataTables_wrapper">
                 <table id="tasksTable" class="highlight compact">
                     <thead>
@@ -26,19 +28,19 @@
                             <th>Task</th>
                             <th>Description</th>
                             <th>Category</th>
-                            <th>Importance</th>
-                            <th>Issues</th>
-                            <th>Due Date</th>
-                            <th>Completed Date</th>
+                            <th class="textRight">Importance</th>
+                            <th class="textRight">Issues</th>
+                            <th class="dateColStyle">Due Date</th>
+                            <th class="dateColStyle">Completed Date</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for task in tasks %}
                         <tr>
-                            <td>{{ task.name }}</td>
-                            <td>{{ task.description }}</td>
+                            <td class="taskStyle">{{ task.name }}</td>
+                            <td class="descriptionStyle2">{{ task.description }}</td>
                             <td>{{ task.category }}</td>
-                            <td>
+                            <td  class="textCenter">
                                 {% if task.importance == 'High' %}
                                     <span class="new badge red" data-badge-caption="">{{ task.importance }}</span> 
                                 {% elif task.importance == "Medium" %}
@@ -47,13 +49,13 @@
                                     <span class="new badge blue" data-badge-caption="">{{ task.importance }}</span> 
                                 {% endif %}
                             </td>
-                            <td>
+                            <td  class="textCenter">
                                 {% if task.issue == 'issue' %}
                                     <i class="material-icons">error_outline</i> 
                                 {% endif %}
                             </td>
-                            <td>{{ task.due_date }}</td>
-                            <td>{{ task.completed_date }}</td>
+                            <td class="dateColStyle">{{ task.due_date }}</td>
+                            <td class="dateColStyle">{{ task.completed_date }}</td>
                         </tr>
                         {% endfor %}
 
@@ -77,15 +79,30 @@
 {% block js %}
 <script type="text/javascript" src="../static/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../static/js/dataTables.material.min.js"></script>
+<script type="text/javascript" src="../static/js/dataTables.responsive.min.js"></script>
 
 
 <!--DataTables & Modals Script-->
 <script type="text/javascript">
     $(document).ready(function() {
         $("#tasksTable").DataTable({
-            select: true,
-            "columns": [null, null, null, null, null, null, { "orderable": false }],
-            "order": [5, "asc"]
+            "lengthMenu": [ 
+                [ 10, 25, 50, -1 ], 
+                [ 10, 25, 50, "All" ] 
+                ],
+            "select": true,
+            "columns": [ null, null, null, null, null, null, { "orderable": false } ],
+            "order": [ 6, "asc" ],
+            "responsive": true,
+            "columnDefs": [
+                { responsivePriority: 1, targets: 0 },
+                { responsivePriority: 2, targets: 6 },
+                { responsivePriority: 3, targets: 5 },
+                { responsivePriority: 4, targets: 4 },
+                { responsivePriority: 5, targets: 3 },
+                { responsivePriority: 6, targets: 2 }, 
+                { responsivePriority: 7, targets: 1 },
+                ]
         });
     });
 </script>
