@@ -4,11 +4,13 @@
 {% block css %}
 <!--DataTables CSS-->
 <link rel="stylesheet" type="text/css" href="../static/css/material.min.css">
-<link rel="stylesheet" type="text/css" href="../static/css/dataTables.material.min.css"> 
+<link rel="stylesheet" type="text/css" href="../static/css/dataTables.material.min.css">
+<link rel="stylesheet" type="text/css" href="../static/css/responsive.dataTables.min.css">
 {% endblock %} 
 
 
 {% block content %}
+<!-- Main body-->
 <div class="row">
     <div class="col s12">
 
@@ -24,21 +26,19 @@
                     <thead>
                         <tr>
                             <th>Task</th>
-                            <!--<th>Description</th>-->
                             <th>Category</th>
                             <th>Status</th>
                             <th>Importance</th>
-                            <th>Due Date</th>
+                            <th class="dueDateStyle">Due Date</th>
                             <th>Issues</th>
-                            <!--<th class="dataTables-checkbox-column sorting_disabled"></th>-->
                             <th></th>
+                            <th>Description</th>
                         </tr>
                     </thead>
                     <tbody>
                         {% for task in tasks %}
                         <tr>
-                            <td>{{ task.name }}</td>
-                            <!--<td>{{ task.description }}</td>-->
+                            <td class="taskStyle">{{ task.name }}</td>
                             <td>{{ task.category }}</td>
                             <td>{{ task.status }}</td>
                             <td>
@@ -46,13 +46,15 @@
                                     <span class="new badge red" data-badge-caption="">{{ task.importance }}</span> 
                                 {% elif task.importance == "Medium" %}
                                     <span class="new badge orange" data-badge-caption="">{{ task.importance }}</span> 
+                                {% elif task.importance == "Low" %}
+                                    <span class="new badge blue" data-badge-caption="">{{ task.importance }}</span>
                                 {% else %}
-                                    <span class="new badge blue" data-badge-caption="">{{ task.importance }}</span> 
+                                    <span class="new badge grey" data-badge-caption="">none</span> 
                                 {% endif %}
                             </td>
-                            <td>{{ task.due_date }}</td>
+                            <td class="dueDateStyle">{{ task.due_date }}</td>
                             <td>
-                                {% if task.issue == 'issue' %}
+                                {% if task.issue %}
                                     <i class="material-icons">error_outline</i> 
                                 {% endif %}
                             </td>
@@ -78,6 +80,7 @@
                                     {% endif %}
                                 </ul>
                             </td>
+                            <td class="descriptionStyle">{{ task.description }}</td>
                         </tr>
                         {% endfor %}
 
@@ -141,10 +144,10 @@
 
 
 <!--JS SCRIPTS-->
-
 {% block js %}
 <script type="text/javascript" src="../static/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../static/js/dataTables.material.min.js"></script>
+<script type="text/javascript" src="../static/js/dataTables.responsive.min.js"></script>
 
 
 <!--Materialize Initialization-->
@@ -178,11 +181,22 @@
         // Needs to be placed after the modal script otherwise it doesn't pick up the right row on second page
         // https://stackoverflow.com/questions/16119693/jquery-data-table-not-working-from-second-page
         $("#tasksTable").DataTable({
-            "responsive": true,
             "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
             "select": true,
-            "columns": [null, null, null, null, null, null, { "orderable": false }],
-            "order": [5, "asc"]
+            "columns": [null, null, null, null, null, null, { "orderable": false }, null ],
+            "order": [5, "asc"],
+            "responsive": true,
+            "columnDefs": [
+                { responsivePriority: 1, targets: 0 },
+                { responsivePriority: 2, targets: 6 },
+                { responsivePriority: 3, targets: 4 },
+                { responsivePriority: 4, targets: 5 },
+                { responsivePriority: 5, targets: 3 },
+                { responsivePriority: 6, targets: 2 }, 
+                { responsivePriority: 7, targets: 1 },
+                { responsivePriority: 8, targets: 7 } 
+                ]
+            
         });
 
     });

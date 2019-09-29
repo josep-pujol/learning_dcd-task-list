@@ -13,27 +13,12 @@ body
     margin-top: 0.5rem;
 }
 
-.mdl-cell 
-{
-    margin-top: 0;    
-}
 
-.menu-dots 
-{
-    color: black;
-}
 
-.dropdown-content li>span>a 
-{
-    color: black; 
-}
+/* Table */
 
-.dropdown-content 
+.dataTables_length 
 {
-    min-width: fit-content;
-}
-
-.dataTables_length {
     height: 100%;  
     display: flex;
     align-items: flex-end;
@@ -59,5 +44,49 @@ body
     font-size: 14px;
     
     display: inline-block;
-    
+}
+
+#tasksTable 
+{
+    width: 100% !important;
+}
+
+.mdl-cell 
+{
+    margin-top: 0;    
+}
+
+.taskStyle
+{
+    min-width: 200px;
+    padding-right: 1em;
+}
+
+.dueDateStyle 
+{
+    min-width: 110px;
+    white-space: nowrap;
+}
+
+.descriptionStyle
+{
+    min-width: 10000px;
+}
+
+
+/* Drop down menu in each row */
+
+.menu-dots 
+{
+    color: black;
+}
+
+.dropdown-content li>span>a 
+{
+    color: black; 
+}
+
+.dropdown-content 
+{
+    min-width: fit-content;
 }
