@@ -12,19 +12,15 @@ mongo = PyMongo(app)
 
 
 @app.route('/')
-def render_home_page():
-    return render_template('base.html')
-
-
 @app.route('/tasks')
 def render_tasks_table():
     return render_template('tasks_table.html', 
         tasks=mongo.db.tasks.find({'status': {'$ne': 'Completed'}}))
 
 
-@app.route('/tasks-done')
-def render_tasks_done_table():
-    return render_template('tasks_done_table.html', 
+@app.route('/completed-tasks')
+def render_completed_tasks_table():
+    return render_template('completed_tasks_table.html', 
         tasks=mongo.db.tasks.find({'status': 'Completed'}))
 
 

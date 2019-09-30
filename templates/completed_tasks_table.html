@@ -51,7 +51,7 @@
                             </td>
                             <td  class="textCenter">
                                 {% if task.issue == 'issue' %}
-                                    <i class="material-icons">error_outline</i> 
+                                    <i class="material-icons issueIconStyle">error_outline</i> 
                                 {% endif %}
                             </td>
                             <td class="dateColStyle">{{ task.due_date }}</td>
@@ -82,7 +82,7 @@
 <script type="text/javascript" src="../static/js/dataTables.responsive.min.js"></script>
 
 
-<!--DataTables & Modals Script-->
+<!--Initialize and set options for DataTables-->
 <script type="text/javascript">
     $(document).ready(function() {
         $("#tasksTable").DataTable({
@@ -91,7 +91,7 @@
                 [ 10, 25, 50, "All" ] 
                 ],
             "select": true,
-            "columns": [ null, null, null, null, null, null, { "orderable": false } ],
+            "columns": [ null, { "orderable": false }, null, null, null, null, null ],
             "order": [ 6, "asc" ],
             "responsive": true,
             "columnDefs": [

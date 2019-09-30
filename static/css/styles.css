@@ -88,6 +88,11 @@ body
     text-align: center;
 }
 
+.issueIconStyle
+{
+    color: red;
+    
+}
 
 /* Action Button */
 

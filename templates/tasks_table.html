@@ -55,7 +55,7 @@
                             <td class="dateColStyle">{{ task.due_date }}</td>
                             <td class="textCenter">
                                 {% if task.issue %}
-                                    <i class="material-icons">error_outline</i> 
+                                    <i class="material-icons issueIconStyle">error_outline</i> 
                                 {% endif %}
                             </td>
                             <td>
@@ -132,9 +132,9 @@
 </div>
 
 
-<!--Floating Button to Add Task-->
+<!--Floating Button to Add Tasks-->
 <div class="fixed-action-btn">
-    <a class="btn-floating btn-large gradient-45deg-light-blue-cyan gradient-shadow"  href="{{url_for('render_add_task')}}">
+    <a class="btn-floating btn-large tooltipped gradient-45deg-light-blue-cyan gradient-shadow" data-position="left" data-tooltip="Click to add Tasks"  href="{{url_for('render_add_task')}}">
         <i class="material-icons">add</i>
     </a>
 </div>
@@ -142,7 +142,7 @@
 
 
 
-<!--JS SCRIPTS-->
+<!--SCRIPTS-->
 {% block js %}
 <script type="text/javascript" src="../static/js/jquery.dataTables.min.js"></script>
 <script type="text/javascript" src="../static/js/dataTables.material.min.js"></script>
@@ -156,11 +156,13 @@
         var instances_dd = M.Dropdown.init(elems_dd);
         var elems_fb = document.querySelectorAll('.fixed-action-btn');
         var instances_fb = M.FloatingActionButton.init(elems_fb);
+        var elems_tt = document.querySelectorAll('.tooltipped');
+        var instances_tt = M.Tooltip.init(elems_tt);
     });
 </script>
 
 
-<!--DataTables & Modals Script-->
+<!--Initialize and set options for DataTables and Modals-->
 <script type="text/javascript">
     $(document).ready(function() {
         $(".modal").modal({
@@ -177,7 +179,7 @@
             $('#CreateIssuesModalForm').modal("open");
         });
 
-        // Needs to be placed after the modal script otherwise it doesn't pick up the right row on second page
+        // Needs to be placed after the modal otherwise it doesn't pick up the right row on second page
         // https://stackoverflow.com/questions/16119693/jquery-data-table-not-working-from-second-page
         $("#tasksTable").DataTable({
             "lengthMenu": [ 
