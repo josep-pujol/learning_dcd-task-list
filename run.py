@@ -14,8 +14,12 @@ mongo = PyMongo(app)
 @app.route('/')
 @app.route('/tasks')
 def render_tasks_table():
+    tasks_order=list(mongo.db.task_importance.find())
+    imp_order = {item['importance']: item['order'] for item in tasks_order}
+
     return render_template('tasks_table.html', 
-        tasks=mongo.db.tasks.find({'status': {'$ne': 'Completed'}}))
+        tasks=mongo.db.tasks.find({'status': {'$ne': 'Completed'}}),
+        imp_order=imp_order, )
 
 
 @app.route('/completed-tasks')

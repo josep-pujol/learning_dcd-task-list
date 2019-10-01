@@ -41,17 +41,15 @@
                             <td class="taskStyle">{{ task.name }}</td>
                             <td>{{ task.category }}</td>
                             <td class="textCenter">{{ task.status }}</td>
-                            <td class="textCenter">
-                                {% if task.importance == 'High' %}
-                                    <span class="new badge red" data-badge-caption="">{{ task.importance }}</span> 
-                                {% elif task.importance == "Medium" %}
-                                    <span class="new badge orange" data-badge-caption="">{{ task.importance }}</span> 
-                                {% elif task.importance == "Low" %}
-                                    <span class="new badge blue" data-badge-caption="">{{ task.importance }}</span>
-                                {% else %}
-                                    <span class="new badge grey" data-badge-caption="">none</span> 
-                                {% endif %}
-                            </td>
+                            {% if task.importance == 'High' %}
+                                <td class="textCenter" data-sort="{{ imp_order.High }}"><span class="new badge red" data-badge-caption="">{{ task.importance }}</span></td>
+                            {% elif task.importance == 'Medium' %}
+                                <td class="textCenter" data-sort="{{ imp_order.Medium }}"><span class="new badge orange" data-badge-caption="">{{ task.importance }}</span></td>
+                            {% elif task.importance == 'Low' %}
+                                <td class="textCenter" data-sort="{{ imp_order.Low }}"><span class="new badge blue" data-badge-caption="">{{ task.importance }}</span></td>
+                            {% else %}
+                                <td class="textCenter" data-sort="0"><span class="new badge grey" data-badge-caption="">none</span></td> 
+                            {% endif %}
                             <td class="dateColStyle">{{ task.due_date }}</td>
                             <td class="textCenter">
                                 {% if task.issue %}
