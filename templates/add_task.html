@@ -54,8 +54,9 @@
                     <div class="row col s12">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">today</i>
-                            <input id="task_due_date" name="task_due_date" type="text" class="datepicker">
+                            <input id="task_due_date" name="task_due_date" type="text" class="datepicker validate" required>
                             <label for="icon_prefix">Due Date</label>
+                            <span class="helper-text" data-error="This field is required" data-success="Good!"></span>
                         </div>
                     </div>
                     <div class="row col s12">
@@ -88,7 +89,7 @@
     <!--Materialize Initialization-->
     <script type="text/javascript">
         const options_dp = {showDaysInNextAndPreviousMonths: true,
-                            yearRange: 15,
+                            yearRange: 10,
                             firstDay: 1,
                             showClearBtn: true,
                             };
