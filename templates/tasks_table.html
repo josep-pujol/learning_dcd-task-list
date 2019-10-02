@@ -38,21 +38,21 @@
                     <tbody>
                         {% for task in tasks %}
                         <tr>
-                            <td class="taskStyle">{{ task.name }}</td>
-                            <td>{{ task.category }}</td>
-                            <td class="textCenter">{{ task.status }}</td>
-                            {% if task.importance == 'High' %}
-                                <td class="textCenter" data-sort="{{ imp_order.High }}"><span class="new badge red" data-badge-caption="">{{ task.importance }}</span></td>
-                            {% elif task.importance == 'Medium' %}
-                                <td class="textCenter" data-sort="{{ imp_order.Medium }}"><span class="new badge orange" data-badge-caption="">{{ task.importance }}</span></td>
-                            {% elif task.importance == 'Low' %}
-                                <td class="textCenter" data-sort="{{ imp_order.Low }}"><span class="new badge blue" data-badge-caption="">{{ task.importance }}</span></td>
+                            <td class="taskStyle">{{ task.tsk_name }}</td>
+                            <td>{{ task.tsk_category }}</td>
+                            <td class="textCenter">{{ task.tsk_status }}</td>
+                            {% if task.tsk_importance == 'High' %}
+                                <td class="textCenter" data-sort="{{ imp_order.High }}"><span class="new badge red" data-badge-caption="">{{ task.tsk_importance }}</span></td>
+                            {% elif task.tsk_importance == 'Medium' %}
+                                <td class="textCenter" data-sort="{{ imp_order.Medium }}"><span class="new badge orange" data-badge-caption="">{{ task.tsk_importance }}</span></td>
+                            {% elif task.tsk_importance == 'Low' %}
+                                <td class="textCenter" data-sort="{{ imp_order.Low }}"><span class="new badge blue" data-badge-caption="">{{ task.tsk_importance }}</span></td>
                             {% else %}
                                 <td class="textCenter" data-sort="0"><span class="new badge grey" data-badge-caption="">none</span></td> 
                             {% endif %}
-                            <td class="dateColStyle">{{ task.due_date }}</td>
+                            <td class="dateColStyle">{{ task.tsk_due_date }}</td>
                             <td class="textCenter">
-                                {% if task.issue %}
+                                {% if task.tsk_issue %}
                                     <i class="material-icons issueIconStyle">error_outline</i> 
                                 {% endif %}
                             </td>
@@ -71,14 +71,14 @@
                                     <li><span><a href="{{ url_for('render_edit_task', task_id=task._id) }}">Edit Task</a></span></li>
                                     
                                     <!-- Issue Sign Modal Trigger -->
-                                    {% if task.issue %}
+                                    {% if task.tsk_issue %}
                                         <li><span><a href="#CreateIssuesModalForm" data-id="{{ task._id }}" class="triggerIssuesModal">Remove Issue</a></span></li>
                                     {% else %}
                                         <li><span><a href="#CreateIssuesModalForm" data-id="{{ task._id }}" class="triggerIssuesModal">Add Issue</a></span></li>
                                     {% endif %}
                                 </ul>
                             </td>
-                            <td class="descriptionStyle">{{ task.description }}</td>
+                            <td class="descriptionStyle">{{ task.tsk_description }}</td>
                         </tr>
                         {% endfor %}
 

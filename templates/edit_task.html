@@ -14,18 +14,18 @@
                     <div class="row col s12">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">assignment</i>
-                            <input id="task_name" name="task_name" type="text" class="validate" required value="{{ task.name }}">
-                            <label for="task_name">Task Name*</label>
+                            <input id="tsk_name" name="tsk_name" type="text" class="validate" required value="{{ task.tsk_name }}">
+                            <label for="tsk_name">Task Name*</label>
                             <span class="helper-text" data-error="This field is required" data-success="Good!"></span>
                         </div>
                     </div>
                     <div class="row col s12">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">list</i>
-                            <select id="task_category" name="task_category">
+                            <select id="tsk_category" name="tsk_category">
                               <option value="" disabled selected>Choose Category</option>
                               {% for cat in categories | sort(attribute='category') %}
-                                  {% if cat.category == task.category %}
+                                  {% if cat.category == task.tsk_category %}
                                       <option value="{{ cat.category }}" selected>{{ cat.category }}</option>
                                   {% else %}
                                       <option value="{{ cat.category }}">{{ cat.category }}</option>
@@ -38,10 +38,10 @@
                     <div class="row col s12">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">assignment_turned_in</i>
-                            <select id="task_status" name="task_status">
+                            <select id="tsk_status" name="tsk_status">
                               <option value="" disabled selected>Choose Status</option>
                               {% for stat in statuses | sort(attribute='order') %}
-                                  {% if stat.status == task.status %}
+                                  {% if stat.status == task.tsk_status %}
                                       <option value="{{ stat.status }}" selected>{{ stat.status }}</option>
                                   {% else %}
                                       <option value="{{ stat.status }}">{{ stat.status }}</option>
@@ -54,24 +54,24 @@
                     <div class="row col s12">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">comment</i>
-                            <textarea id="task_description" name="task_description" class="materialize-textarea">{{ task.description }}</textarea>
+                            <textarea id="tsk_description" name="tsk_description" class="materialize-textarea">{{ task.tsk_description }}</textarea>
                             <label for="icon_telephone">Description</label>
                         </div>
                     </div>
                     <div class="row col s12">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">today</i>
-                            <input id="task_due_date" name="task_due_date" type="text" class="datepicker" value="{{ task.due_date }}">
+                            <input id="tsk_due_date" name="tsk_due_date" type="text" class="datepicker" value="{{ task.tsk_due_date }}">
                             <label for="icon_prefix">Due Date</label>
                         </div>
                     </div>
                     <div class="row col s12">
                         <div class="input-field col s12">
                             <i class="material-icons prefix">bookmarks</i>
-                            <select id="task_importance" name="task_importance">
+                            <select id="tsk_importance" name="tsk_importance">
                               <option value="" disabled selected>Choose Importance</option>
                               {% for imp in importances | sort(attribute='order') %}
-                                  {% if imp.importance == task.importance %}
+                                  {% if imp.importance == task.tsk_importance %}
                                       <option value="{{ imp.importance }}" selected>{{ imp.importance }}</option>
                                   {% else %}
                                       <option value="{{ imp.importance }}">{{ imp.importance }}</option>

@@ -37,25 +37,27 @@
                     <tbody>
                         {% for task in tasks %}
                         <tr>
-                            <td class="taskStyle">{{ task.name }}</td>
-                            <td class="descriptionStyle2">{{ task.description }}</td>
-                            <td>{{ task.category }}</td>
+                            <td class="taskStyle">{{ task.tsk_name }}</td>
+                            <td class="descriptionStyle2">{{ task.tsk_description }}</td>
+                            <td>{{ task.tsk_category }}</td>
                             <td  class="textCenter">
-                                {% if task.importance == 'High' %}
-                                    <span class="new badge red" data-badge-caption="">{{ task.importance }}</span> 
-                                {% elif task.importance == "Medium" %}
-                                    <span class="new badge orange" data-badge-caption="">{{ task.importance }}</span> 
+                                {% if task.tsk_importance == 'High' %}
+                                    <span class="new badge red" data-sort="{{ imp_order.High }}" data-badge-caption="">{{ task.tsk_importance }}</span> 
+                                {% elif task.tsk_importance == "Medium" %}
+                                    <span class="new badge orange" data-sort="{{ imp_order.Medium }}" data-badge-caption="">{{ task.tsk_importance }}</span> 
+                                {% elif task.tsk_importance == 'Low' %}
+                                    <td class="textCenter" data-sort="{{ imp_order.Low }}" data-badge-caption=""><span class="new badge blue" data-badge-caption="">{{ task.tsk_importance }}</span></td>
                                 {% else %}
-                                    <span class="new badge blue" data-badge-caption="">{{ task.importance }}</span> 
+                                    <td class="textCenter" data-sort="0"><span class="new badge grey" data-badge-caption="">none</span></td>
                                 {% endif %}
                             </td>
                             <td  class="textCenter">
-                                {% if task.issue == 'issue' %}
+                                {% if task.tsk_issue == 'issue' %}
                                     <i class="material-icons issueIconStyle">error_outline</i> 
                                 {% endif %}
                             </td>
-                            <td class="dateColStyle">{{ task.due_date }}</td>
-                            <td class="dateColStyle">{{ task.completed_date }}</td>
+                            <td class="dateColStyle">{{ task.tsk_due_date }}</td>
+                            <td class="dateColStyle">{{ task.tsk_completed_date }}</td>
                         </tr>
                         {% endfor %}
 
