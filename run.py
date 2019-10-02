@@ -15,17 +15,17 @@ mongo = PyMongo(app)
 @app.route('/tasks')
 def render_tasks_table():
     tasks_order=list(mongo.db.task_importance.find())
-    imp_order = {item['importance']: item['order'] for item in tasks_order}
+    imp_order = {item.get('tsk_importance'): item.get('order') for item in tasks_order}
 
     return render_template('tasks_table.html', 
-        tasks=mongo.db.tasks.find({'status': {'$ne': 'Completed'}}),
+        tasks=mongo.db.tasks.find({'tsk_status': {'$ne': 'Completed'}}),
         imp_order=imp_order, )
 
 
 @app.route('/completed-tasks')
 def render_completed_tasks_table():
     return render_template('completed_tasks_table.html', 
-        tasks=mongo.db.tasks.find({'status': 'Completed'}))
+        tasks=mongo.db.tasks.find({'tsk_status': 'Completed'}))
 
 
 @app.route('/add_task')
@@ -39,8 +39,29 @@ def render_add_task():
 @app.route('/insert_new_task', methods=['POST', ])
 def insert_new_task():
     tasks = mongo.db.tasks
-    print(request.form.to_dict())
-    tasks.insert_one(request.form.to_dict())
+    form_res = request.form.to_dict()
+    
+    if not form_res.get('tsk_category'):
+        form_res['tsk_category'] = 'Undefined'
+    
+    if not form_res.get('tsk_status'):
+        form_res['tsk_status'] = 'Not started'
+    
+    if not form_res.get('tsk_importance'):
+        form_res['tsk_importance'] = 'Low'
+    
+    task_to_add = {
+        'tsk_name': form_res.get('tsk_name'),
+        'tsk_category': form_res.get('tsk_category'),
+        'tsk_status': form_res.get('tsk_status'),
+        'tsk_description': form_res.get('tsk_description'),
+        'tsk_due_date': form_res.get('tsk_due_date'),
+        'tsk_importance': form_res.get('tsk_importance'),
+        'tsk_issue': False,
+        'tsk_notes': None,
+         }
+    
+    tasks.insert_one(task_to_add)
     
     return redirect(url_for('render_tasks_table'))
 
@@ -54,7 +75,8 @@ def render_edit_task(task_id):
                            task=task,
                            categories=mongo.db.task_category.find(),
                            statuses=mongo.db.task_status.find(),
-                           importances=mongo.db.task_importance.find())
+                           importances=mongo.db.task_importance.find(),
+                           )
 
 
 @app.route('/update_task/<task_id>', methods=['POST',])
@@ -63,14 +85,16 @@ def update_task(task_id):
     task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
     tasks.update_one({'_id': ObjectId(task_id)},
                      {'$set': {
-                         'name': request.form.get('name'),
-                         'category': request.form.get('category'),
-                         'description': request.form.get('description'),
-                         'status': request.form.get('status'),
-                         'importance': request.form.get('importance'),
-                         'due_date': request.form.get('due_date'),
-                         'notes': task.get('notes'),
-                     }})
+                         'tsk_name': request.form.get('tsk_name'),
+                         'tsk_category': request.form.get('tsk_category'),
+                         'tsk_status': request.form.get('tsk_status'),
+                         'tsk_description': request.form.get('tsk_description'),
+                         'tsk_due_date': request.form.get('tsk_due_date'),
+                         'tsk_importance': request.form.get('tsk_importance'),
+                         'tsk_issue': task.get('tsk_issue'),
+                         'tsk_notes': task.get('tsk_notes'),
+                      }}
+                     )
     
     return redirect(url_for('render_tasks_table'))
 
@@ -79,12 +103,12 @@ def update_task(task_id):
 def toggle_issue_sign():
     task_id = request.form.get('taskId')
     task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
-    if task.get('issue'):
+    if task.get('tsk_issue'):
         mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
-            {'$set': {'issue': False}})
+            {'$set': {'tsk_issue': False}})
     else:
         mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
-            {'$set': {'issue': True}})
+            {'$set': {'tsk_issue': True}})
     
     return redirect(url_for('render_tasks_table'))
 
