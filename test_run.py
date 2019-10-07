@@ -9,12 +9,12 @@ existing_collections = ['task_importance', 'tasks', 'task_category',
                         'task_status']
 
 time_stamp_obj = datetime.datetime.utcnow()
-dummy_task = {'name': 'Testing Task',
-             'category': 'Test Category',
-             'description': 'Test Description' + str(time_stamp_obj),
-             'status': 'Test Status',
-             'importance': 'Test Importance',
-             'due_date': time_stamp_obj.strftime('%b %d, %Y'), }
+dummy_task = {'tsk_name': 'Testing Task',
+              'tsk_category': 'Test Category',
+              'tsk_description': 'Test Description' + str(time_stamp_obj),
+              'tsk_status': 'Test Status',
+              'tsk_importance': 'Test Importance',
+              'tsk_due_date': time_stamp_obj.strftime('%b %d, %Y'), }
 
 
 
@@ -27,7 +27,7 @@ class TestAppCase(unittest.TestCase):
     
     
     def tearDown(self):
-        task_description = {'description': self.dummy_task['description']}
+        task_description = {'tsk_description': self.dummy_task['tsk_description']}
         dummy_tasks = mongo.db.tasks.count_documents(task_description)
         print(dummy_tasks)
         if dummy_tasks:
@@ -46,7 +46,7 @@ class TestAppCase(unittest.TestCase):
         res_text = res.get_data(as_text=True)
         
         self.assertEqual(res.status_code, 200)
-        self.assertIn('"brand-logo">Logo', res_text)
+        self.assertIn('"brand-logo">WFM', res_text)
     
     
     def test_render_tasks_table(self):
@@ -57,8 +57,8 @@ class TestAppCase(unittest.TestCase):
         self.assertIn('"section-title">Tasks', res_text)
     
     
-    def test_render_tasks_done_table(self):
-        res = self.client.get('/tasks-done')
+    def test_render_completed_tasks(self):
+        res = self.client.get('/completed-tasks')
         res_text = res.get_data(as_text=True)
         
         self.assertEqual(res.status_code, 200)
@@ -78,7 +78,7 @@ class TestAppCase(unittest.TestCase):
                                data=self.dummy_task, 
                                follow_redirects=True)
         dummy_task_description = mongo.db.tasks.find(
-            {'description': self.dummy_task['description']})
+            {'tsk_description': self.dummy_task['tsk_description']})
         
         self.assertEqual(res.status_code, 200)
         self.assertIsNotNone(dummy_task_description)
@@ -91,7 +91,7 @@ class TestAppCase(unittest.TestCase):
         res_text = res.get_data(as_text=True)     
         
         self.assertEqual(res.status_code, 200)
-        self.assertIn(self.dummy_task['description'], res_text)        
+        self.assertIn(self.dummy_task['tsk_description'], res_text)        
 
 
     def test_update_task(self):
@@ -104,8 +104,8 @@ class TestAppCase(unittest.TestCase):
                                     {'_id': ObjectId(dummy_task_id)})
         
         self.assertEqual(res.status_code, 200)
-        self.assertEqual(self.dummy_task['name'], 
-                         updated_dummy_task.get('name'))
+        self.assertEqual(self.dummy_task['tsk_name'], 
+                         updated_dummy_task.get('tsk_name'))
         
 
     def test_toggle_issue_sign_add(self):
@@ -118,14 +118,14 @@ class TestAppCase(unittest.TestCase):
                                     {'_id': ObjectId(dummy_task_id)})
 
         self.assertEqual(res.status_code, 200)
-        self.assertTrue(dummy_task_issue.get('issue'))        
+        self.assertTrue(dummy_task_issue.get('tsk_issue'))        
 
 
     def test_toggle_issue_sign_remove(self):
         dummy_task_id = mongo.db.tasks.insert_one(self.dummy_task).inserted_id
         data = {'taskId': dummy_task_id}
         mongo.db.tasks.update_one({'_id': ObjectId(dummy_task_id)}, 
-                                  {'$set': {'issue': True}})
+                                  {'$set': {'tsk_issue': True}})
         res = self.client.post('/toggle-issue-sign',
                                data=data,
                                follow_redirects=True)
@@ -133,7 +133,7 @@ class TestAppCase(unittest.TestCase):
                                     {'_id': ObjectId(dummy_task_id)})
         
         self.assertEqual(res.status_code, 200)
-        self.assertFalse(dummy_task_no_issue.get('issue')) 
+        self.assertFalse(dummy_task_no_issue.get('tsk_issue')) 
 
 
 
