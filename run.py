@@ -33,7 +33,7 @@ def render_completed_tasks_table():
         imp_order=imp_order, )
 
 
-@app.route('/add_task')
+@app.route('/add-task')
 def render_add_task():
     
     return render_template('add_task.html',
@@ -42,7 +42,7 @@ def render_add_task():
                            importances=mongo.db.task_importance.find())
 
 
-@app.route('/insert_new_task', methods=['POST', ])
+@app.route('/insert-new-task', methods=['POST', ])
 def insert_new_task():
     tasks = mongo.db.tasks
     form_res = request.form.to_dict()
@@ -72,7 +72,7 @@ def insert_new_task():
     return redirect(url_for('render_tasks_table'))
 
 
-@app.route('/edit_task/<task_id>')
+@app.route('/edit-task/<task_id>')
 def render_edit_task(task_id):
     task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
     print('\ntask', task)
@@ -85,7 +85,7 @@ def render_edit_task(task_id):
                            )
 
 
-@app.route('/update_task/<task_id>', methods=['POST',])
+@app.route('/update-task/<task_id>', methods=['POST',])
 def update_task(task_id):
     tasks = mongo.db.tasks
     task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
@@ -138,6 +138,11 @@ def edit_status():
 
     return redirect(url_for('render_tasks_table'))    
 
+
+@app.route('/add-note', methods=['POST', ])
+def add_note():
+    task_id = request.form.get('taskId')
+    task_status = request.form.get('tsk_status')
 
 
 if __name__ == '__main__':
