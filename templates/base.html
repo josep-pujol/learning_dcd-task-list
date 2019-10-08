@@ -28,13 +28,13 @@
                     <a href="{{url_for('render_tasks_table')}}" class="brand-logo">WFM</a>
                     <a href="#" data-target="mobile-nav" class="sidenav-trigger"><i class="material-icons">menu</i></a>
                     <ul id="main-nav" class="right hide-on-med-and-down">
-                        <li><a href="{{url_for('render_add_task')}}">Add Tasks</a></li>
+                        <li><a href="{{url_for('render_tasks_table')}}">Tasks</a></li>
                         <li><a href="{{url_for('render_completed_tasks_table')}}">Completed Tasks</a></li>
                     </ul>
                 </div>
             </nav>
             <ul class="sidenav" id="mobile-nav">
-                <li><a href="{{url_for('render_add_task')}}">Add Tasks</a></li>
+                <li><a href="{{url_for('render_tasks_table')}}">Tasks</a></li>
                 <li><a href="{{url_for('render_completed_tasks_table')}}">Completed Tasks</a></li>
             </ul>
         </div>

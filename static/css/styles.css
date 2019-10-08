@@ -140,3 +140,10 @@ body
 {
     line-height: 64px;
 }
+
+nav .brand-logo
+{
+    padding-left: 10px;
+    padding-right: 10px;
+}
+
