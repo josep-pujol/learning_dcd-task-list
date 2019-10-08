@@ -91,13 +91,14 @@
                             <div class="modal-footer">
                                 <form action="{{ url_for('edit_status') }}" method="POST">
                                     <input type="hidden" name="taskId" id="taskId" value="" /> 
-                                    <select class="browser-default" id="tsk_status" name="tsk_status" value="">
-                                      <option value="" disabled selected>Choose Status</option>
-                                      {% for stat in statuses | sort(attribute='order') %}
-                                          <option value="{{ stat.status }}">{{ stat.status }}</option>
-                                      {% endfor %}
-                                    </select>
-                                    <label>Status</label>
+                                    <div class="col s6">
+                                        <select class="browser-default" id="tsk_status" name="tsk_status" value="">
+                                          <option value="" disabled selected>Choose Status</option>
+                                          {% for stat in statuses | sort(attribute='order') %}
+                                              <option value="{{ stat.status }}">{{ stat.status }}</option>
+                                          {% endfor %}
+                                        </select>   
+                                    </div>
                                     <a class="btn-flat modal-close">Cancel</a>
                                     <button class="btn modal-action modal-close" type="submit" name="action">Confirm</button>
                                 </form>

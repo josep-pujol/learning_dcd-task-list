@@ -121,10 +121,8 @@ def toggle_issue_sign():
 
 @app.route('/edit-status', methods=['POST', ])
 def edit_status():
-    print(request.form)
     task_id = request.form.get('taskId')
     task_status = request.form.get('tsk_status')
-    print(task_id, 'task_status:', task_status)
 
     if task_status == 'Completed':
         timestamp = datetime.datetime.utcnow().strftime('%b %d, %Y')
@@ -134,12 +132,10 @@ def edit_status():
                  'tsk_status': task_status,    
                 }
             })
-        print('Task completed')
     else:
         res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
             {'$set': {'tsk_status': task_status, }})
-        print('Updated status') 
-    print(res.raw_result)
+
     return redirect(url_for('render_tasks_table'))    
 
 
