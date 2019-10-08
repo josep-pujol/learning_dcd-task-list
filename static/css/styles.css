@@ -128,3 +128,15 @@ body
     min-width: fit-content;
 }
 
+
+/* Navbar */
+
+.sidenav-overlay 
+{
+    z-index: 995;
+}
+
+#main-nav
+{
+    line-height: 64px;
+}
