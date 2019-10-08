@@ -67,7 +67,8 @@
                                     <!-- Mark Done Modal Trigger -->
                                     <li><span><a href="#CreateEditStatusModalForm" data-id="{{ task._id }}" class="triggerEditStatusModal">Edit Status</a></span></li>
                                     <li><span><a href="{{ url_for('render_edit_task', task_id=task._id) }}">Edit Task</a></span></li>
-                                    <li><span><a href="#!">Add Notes</a></span></li>
+                                    <!-- Add Note Modal Trigger -->
+                                    <li><span><a href="#CreateAddNoteModalForm" data-id="{{ task._id }}" class="triggerAddNoteModal">Add Note</a></span></li>
                                     <!-- Issue Sign Modal Trigger -->
                                     {% if task.tsk_issue %}
                                         <li><span><a href="#CreateIssuesModalForm" data-id="{{ task._id }}" class="triggerIssuesModal">Remove Issue</a></span></li>
@@ -104,7 +105,24 @@
                                 </form>
                             </div>
                         </div>
-                    
+                        
+                        <!-- Add Note Modal Structure -->
+                        <div id="CreateAddNoteModalForm" class="modal">
+                            <div class="modal-content">
+                                <h4>Add Note</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <form action="{{ url_for('add_note') }}" method="POST">
+                                    <input type="hidden" name="taskId" id="taskId" value="" /> 
+                                    <div class="input-field col s8">
+                                        <textarea id="tsk_note" name="tsk_note" class="materialize-textarea"></textarea>
+                                        <label for="tsk_note">Add Note</label>
+                                    </div>
+                                    <a class="btn-flat modal-close">Cancel</a>
+                                    <button class="btn modal-action modal-close" type="submit" name="action">Confirm</button>
+                                </form>
+                            </div>
+                        </div>
 
                         <!-- Issue Sign Modal Structure -->
                         <div id="CreateIssuesModalForm" class="modal">
@@ -129,7 +147,6 @@
             
             <!-- END TABLE -->
             
-            
         </div>
         <!--End table card-->
     </div>
@@ -152,7 +169,6 @@
 <script type="text/javascript" src="../static/js/dataTables.material.min.js"></script>
 <script type="text/javascript" src="../static/js/dataTables.responsive.min.js"></script>
 
-
 <!--Materialize Initialization-->
 <script type="text/javascript">
     document.addEventListener('DOMContentLoaded', function() {
@@ -165,10 +181,11 @@
     });
 </script>
 
-
-<!--Initialize and set options for DataTables and Modals-->
+<!--Initialize and set options for Modals and DataTables-->
 <script type="text/javascript">
     $(document).ready(function() {
+        
+        // Modals
         $(".modal").modal({
             dismissible: true
         });
@@ -180,12 +197,19 @@
         
         $("select").formSelect();
         
+        $(".triggerAddNoteModal").click(function() {
+            $(".modal-footer #taskId").val($(this).data("id"));
+            $('#CreateAddNoteModalForm').modal("open");
+        });
+        
         $(".triggerIssuesModal").click(function() {
             $(".modal-footer #taskId").val($(this).data("id"));
             $('#CreateIssuesModalForm').modal("open");
         });
-
-        // Needs to be placed after the modal otherwise it doesn't pick up the right row on second page
+        
+        
+        // DataTables
+        // Needs to be placed after the modals otherwise it doesn't pick up the right row on second page
         // https://stackoverflow.com/questions/16119693/jquery-data-table-not-working-from-second-page
         $("#tasksTable").DataTable({
             "lengthMenu": [ 

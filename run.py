@@ -64,7 +64,7 @@ def insert_new_task():
         'tsk_due_date': form_res.get('tsk_due_date'),
         'tsk_importance': form_res.get('tsk_importance'),
         'tsk_issue': False,
-        'tsk_notes': None,
+        'tsk_notes': [],
          }
     
     tasks.insert_one(task_to_add)
@@ -141,8 +141,21 @@ def edit_status():
 
 @app.route('/add-note', methods=['POST', ])
 def add_note():
+    print(request.form)
     task_id = request.form.get('taskId')
-    task_status = request.form.get('tsk_status')
+    timestamp = datetime.datetime.utcnow().strftime('%b %d, %Y at %H:%mh')
+    note = request.form.get('tsk_note')
+    
+    res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
+            {'$push': {
+                        'tsk_notes':
+                            {'note_timestamp': timestamp,
+                             'note_text': note,    
+                            }
+                      }
+            })
+    print(res)
+    return redirect(url_for('render_tasks_table'))
 
 
 if __name__ == '__main__':
