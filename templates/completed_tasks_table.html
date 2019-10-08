@@ -40,19 +40,17 @@
                             <td class="taskStyle">{{ task.tsk_name }}</td>
                             <td class="descriptionStyle2">{{ task.tsk_description }}</td>
                             <td>{{ task.tsk_category }}</td>
+                            {% if task.tsk_importance == 'High' %}
+                                <td class="textCenter" data-sort="{{ imp_order.High }}"><span class="new badge red" data-badge-caption="">{{ task.tsk_importance }}</span></td>
+                            {% elif task.tsk_importance == 'Medium' %}
+                                <td class="textCenter" data-sort="{{ imp_order.Medium }}"><span class="new badge orange" data-badge-caption="">{{ task.tsk_importance }}</span></td>
+                            {% elif task.tsk_importance == 'Low' %}
+                                <td class="textCenter" data-sort="{{ imp_order.Low }}"><span class="new badge blue" data-badge-caption="">{{ task.tsk_importance }}</span></td>
+                            {% else %}
+                                <td class="textCenter" data-sort="0"><span class="new badge grey" data-badge-caption="">none</span></td> 
+                            {% endif %}
                             <td  class="textCenter">
-                                {% if task.tsk_importance == 'High' %}
-                                    <span class="new badge red" data-sort="{{ imp_order.High }}" data-badge-caption="">{{ task.tsk_importance }}</span> 
-                                {% elif task.tsk_importance == "Medium" %}
-                                    <span class="new badge orange" data-sort="{{ imp_order.Medium }}" data-badge-caption="">{{ task.tsk_importance }}</span> 
-                                {% elif task.tsk_importance == 'Low' %}
-                                    <td class="textCenter" data-sort="{{ imp_order.Low }}" data-badge-caption=""><span class="new badge blue" data-badge-caption="">{{ task.tsk_importance }}</span></td>
-                                {% else %}
-                                    <td class="textCenter" data-sort="0"><span class="new badge grey" data-badge-caption="">none</span></td>
-                                {% endif %}
-                            </td>
-                            <td  class="textCenter">
-                                {% if task.tsk_issue == 'issue' %}
+                                {% if task.tsk_issue %}
                                     <i class="material-icons issueIconStyle">error_outline</i> 
                                 {% endif %}
                             </td>
@@ -60,7 +58,6 @@
                             <td class="dateColStyle">{{ task.tsk_completed_date }}</td>
                         </tr>
                         {% endfor %}
-
                     </tbody>
                 </table>
             </div>
@@ -103,7 +100,7 @@
                 { responsivePriority: 4, targets: 4 },
                 { responsivePriority: 5, targets: 3 },
                 { responsivePriority: 6, targets: 2 }, 
-                { responsivePriority: 7, targets: 1 },
+                { responsivePriority: 7, targets: 1 }
                 ]
         });
     });
