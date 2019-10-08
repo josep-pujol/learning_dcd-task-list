@@ -19,17 +19,23 @@ def render_tasks_table():
 
     return render_template('tasks_table.html', 
         tasks=mongo.db.tasks.find({'tsk_status': {'$ne': 'Completed'}}),
+        statuses=mongo.db.task_status.find(),
         imp_order=imp_order, )
 
 
 @app.route('/completed-tasks')
 def render_completed_tasks_table():
+    tasks_order=list(mongo.db.task_importance.find())
+    imp_order = {item.get('tsk_importance'): item.get('order') for item in tasks_order}
+    
     return render_template('completed_tasks_table.html', 
-        tasks=mongo.db.tasks.find({'tsk_status': 'Completed'}))
+        tasks=mongo.db.tasks.find({'tsk_status': 'Completed'}),
+        imp_order=imp_order, )
 
 
 @app.route('/add_task')
 def render_add_task():
+    
     return render_template('add_task.html',
                            categories=mongo.db.task_category.find(),
                            statuses=mongo.db.task_status.find(),
@@ -113,13 +119,27 @@ def toggle_issue_sign():
     return redirect(url_for('render_tasks_table'))
 
 
-@app.route('/mark-task-done', methods=['POST', ])
-def mark_task_done():
+@app.route('/edit-status', methods=['POST', ])
+def edit_status():
+    print(request.form)
     task_id = request.form.get('taskId')
-    res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
-        {'$set': {'completed_date': datetime.datetime.utcnow().strftime('%b %d, %Y')}})
-    print('mark task as completed', res.raw_result)
-    
+    task_status = request.form.get('tsk_status')
+    print(task_id, 'task_status:', task_status)
+
+    if task_status == 'Completed':
+        timestamp = datetime.datetime.utcnow().strftime('%b %d, %Y')
+        res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
+            {'$set': 
+                {'tsk_completed_date': timestamp,
+                 'tsk_status': task_status,    
+                }
+            })
+        print('Task completed')
+    else:
+        res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
+            {'$set': {'tsk_status': task_status, }})
+        print('Updated status') 
+    print(res.raw_result)
     return redirect(url_for('render_tasks_table'))    
 
 

@@ -64,12 +64,10 @@
     
                                 <!-- Dropdown Structure -->
                                 <ul id="{{ 'dropdown' ~ loop.index}}" class="dropdown-content">
-                                    
                                     <!-- Mark Done Modal Trigger -->
-                                    <li><span><a href="#CreateMarkDoneModalForm" data-id="{{ task._id }}" class="triggerMarkDoneModal">Mark Done</a></span></li>
-                                    <li><span><a href="#!">Add Notes</a></span></li>
+                                    <li><span><a href="#CreateEditStatusModalForm" data-id="{{ task._id }}" class="triggerEditStatusModal">Edit Status</a></span></li>
                                     <li><span><a href="{{ url_for('render_edit_task', task_id=task._id) }}">Edit Task</a></span></li>
-                                    
+                                    <li><span><a href="#!">Add Notes</a></span></li>
                                     <!-- Issue Sign Modal Trigger -->
                                     {% if task.tsk_issue %}
                                         <li><span><a href="#CreateIssuesModalForm" data-id="{{ task._id }}" class="triggerIssuesModal">Remove Issue</a></span></li>
@@ -84,7 +82,29 @@
 
 
                         <!-- MODALS -->
-                        
+
+                        <!-- Edit Status Modal Structure -->
+                        <div id="CreateEditStatusModalForm" class="modal">
+                            <div class="modal-content">
+                                <h4>Select Status</h4>
+                            </div>
+                            <div class="modal-footer">
+                                <form action="{{ url_for('edit_status') }}" method="POST">
+                                    <input type="hidden" name="taskId" id="taskId" value="" /> 
+                                    <select class="browser-default" id="tsk_status" name="tsk_status" value="">
+                                      <option value="" disabled selected>Choose Status</option>
+                                      {% for stat in statuses | sort(attribute='order') %}
+                                          <option value="{{ stat.status }}">{{ stat.status }}</option>
+                                      {% endfor %}
+                                    </select>
+                                    <label>Status</label>
+                                    <a class="btn-flat modal-close">Cancel</a>
+                                    <button class="btn modal-action modal-close" type="submit" name="action">Confirm</button>
+                                </form>
+                            </div>
+                        </div>
+                    
+
                         <!-- Issue Sign Modal Structure -->
                         <div id="CreateIssuesModalForm" class="modal">
                             <div class="modal-content">
@@ -100,21 +120,6 @@
                             </div>
                         </div>
 
-                        <!-- Mark Done Modal Structure -->
-                        <div id="CreateMarkDoneModalForm" class="modal">
-                            <div class="modal-content">
-                                <h4>Confirmation</h4>
-                                <p>Are you sure you want to mark this task as done?</p>
-                            </div>
-                            <div class="modal-footer">
-                                <form action="{{ url_for('mark_task_done') }}" method="POST">
-                                    <input type="hidden" name="taskId" id="taskId" value="" />
-                                    <a class="btn-flat modal-close">Cancel</a>
-                                    <button class="btn modal-action modal-close" type="submit" name="action">Confirm</button>
-                                </form>
-                            </div>
-                        </div>
-                        
                         <!-- END MODALS -->
                         
                     </tbody>
@@ -167,12 +172,14 @@
             dismissible: true
         });
         
-        $(".triggerMarkDoneModal").click(function(){
+        $(".triggerEditStatusModal").click(function() {
             $(".modal-footer #taskId").val($(this).data("id"));
-            $('#CreateMarkDoneModalForm').modal("open");
+            $('#CreateEditStatusModalForm').modal("open");
         });
         
-        $(".triggerIssuesModal").click(function(){
+        $("select").formSelect();
+        
+        $(".triggerIssuesModal").click(function() {
             $(".modal-footer #taskId").val($(this).data("id"));
             $('#CreateIssuesModalForm').modal("open");
         });
