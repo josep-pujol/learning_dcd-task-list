@@ -139,24 +139,6 @@ def edit_status():
     return redirect(url_for('render_tasks_table'))    
 
 
-@app.route('/add-note', methods=['POST', ])
-def add_note():
-    print(request.form)
-    task_id = request.form.get('taskId')
-    timestamp = datetime.datetime.utcnow().strftime('%b %d, %Y at %H:%mh')
-    note = request.form.get('tsk_note')
-    
-    res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
-            {'$push': {
-                        'tsk_notes':
-                            {'note_timestamp': timestamp,
-                             'note_text': note,    
-                            }
-                      }
-            })
-    print(res)
-    return redirect(url_for('render_tasks_table'))
-
 
 if __name__ == '__main__':
     app.run(host=os.environ.get('IP'),

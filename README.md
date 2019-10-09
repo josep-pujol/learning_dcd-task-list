@@ -31,7 +31,7 @@ A demo of the site can be viewed [HERE](https://dcd-workforce-management.herokua
 
 
 ## Testing
-- Unit tests with % coverage:
+- Python Unit tests with % coverage:
    
 - All code used on this site has been manually tested to ensure everything is working as expected. Some tests include:
     - site responsiveness

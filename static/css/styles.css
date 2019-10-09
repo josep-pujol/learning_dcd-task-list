@@ -94,12 +94,29 @@ body
 }
 
 
-/* Action Button */
+/* Pagination buttons */
+.mdl-button--raised.mdl-button--colored
+{
+    background-color: #26a69a;
+}
+
+.mdl-button--raised.mdl-button--colored:hover
+{    
+    background-color: #00897b;
+}
+
+
+/* Fixed/Action Button */
 
 .fixed-action-btn
 {
     bottom: 2.75em; 
     right: 2.75em;
+}
+
+.btn-floating:hover
+{
+    background-color: #00897b;
 }
 
 @media (max-width: 990px)
