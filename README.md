@@ -32,15 +32,12 @@ The site can be viewed [HERE](https://dcd-workforce-management.herokuapp.com/)
 
 
 ## Testing
-- Unit tests with  include:
+- Unit tests with % coverage:
    
 - All code used on this site has been manually tested to ensure everything is working as expected. Some tests include:
     - site responsiveness
-    - functionality of the currency converter
-        - different currencies 
-        - different amounts
-        - invalid amounts
-    - mouse hovering over the Multiline chart to display dynamic labels including: currency, exchange rate and date
+    - functionality 
+    - 
 - Site viewed and tested in the following browsers:
   - Google Chrome
   - Microsoft Edge

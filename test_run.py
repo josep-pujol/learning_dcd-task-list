@@ -66,7 +66,7 @@ class TestAppCase(unittest.TestCase):
     
     
     def test_render_add_task(self):
-        res = self.client.get('/add_task')
+        res = self.client.get('/add-task')
         res_text = res.get_data(as_text=True)
         
         self.assertEqual(res.status_code, 200)
@@ -74,7 +74,7 @@ class TestAppCase(unittest.TestCase):
         
         
     def test_insert_new_task(self):
-        res = self.client.post('/insert_new_task', 
+        res = self.client.post('/insert-new-task', 
                                data=self.dummy_task, 
                                follow_redirects=True)
         dummy_task_description = mongo.db.tasks.find(
@@ -86,7 +86,7 @@ class TestAppCase(unittest.TestCase):
 
     def test_render_edit_task(self):
         dummy_task_id = mongo.db.tasks.insert_one(self.dummy_task).inserted_id
-        res = self.client.get(f'/edit_task/{dummy_task_id}',
+        res = self.client.get(f'/edit-task/{dummy_task_id}',
                               follow_redirects=True)
         res_text = res.get_data(as_text=True)     
         
@@ -97,7 +97,7 @@ class TestAppCase(unittest.TestCase):
     def test_update_task(self):
         dummy_task_id = mongo.db.tasks.insert_one(self.dummy_task).inserted_id
         self.dummy_task['name'] = 'Testing Update Task'
-        res = self.client.post(f'/update_task/{dummy_task_id}',
+        res = self.client.post(f'/update-task/{dummy_task_id}',
                                data=self.dummy_task,
                                follow_redirects=True)
         updated_dummy_task = mongo.db.tasks.find_one(
