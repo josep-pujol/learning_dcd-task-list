@@ -2,11 +2,10 @@
 
 [![Build Status](https://travis-ci.com/josep-pujol/learning_dcd-workforce-management.svg?token=mpvYNnPLPqbCpUvpUExD&branch=master)](https://travis-ci.com/josep-pujol/learning_dcd-workforce-management)
 
-This repo contains a solution code for the milestone project of the *Data Centric Development* module for Code Institute.
+This repo contains a solution code for the milestone project of the *Data Centric Development* module at Code Institute.
 
 
-Heroku url
-The site can be viewed [HERE](https://dcd-workforce-management.herokuapp.com/)
+A demo of the site can be viewed [HERE](https://dcd-workforce-management.herokuapp.com/)
 
 
 
@@ -27,7 +26,7 @@ The site can be viewed [HERE](https://dcd-workforce-management.herokuapp.com/)
 - [Heroku](https://heroku.com)
     - To deploy the project
 - [Travis](https://travis-ci.org/)
-    - For testing
+    - Continuous integration
 
 
 
