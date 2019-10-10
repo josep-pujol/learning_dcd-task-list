@@ -5,7 +5,7 @@
 
 This repo contains a solution code for the milestone project of the *Data Centric Development* module at Code Institute.
 
-Consists on a "Tasks List" application in which users can store and manage tasks. This is the first part of a bigger project which will use this app for multiple users, groups of users etc. that will be the final project at Code Institute.
+Consists on a "Tasks List" application in which users can store and manage tasks. This is the first part of a bigger project which will use this app for multiple users, groups of users etc. and that will be the final project at Code Institute.
 
 A demo of the app can be viewed [HERE](https://dcd-workforce-management.herokuapp.com/)
 
@@ -14,7 +14,7 @@ A demo of the app can be viewed [HERE](https://dcd-workforce-management.herokuap
 
 ## UX
 
-The app will consist on three main pages: 
+The app consists of three main pages: 
 
 - Main page to display all Tasks to be done
 
@@ -29,12 +29,12 @@ The app will consist on three main pages:
     ![Completed Tasks](https://github.com/josep-pujol/learning_dcd-workforce-management/blob/master/wireframes/completed_tasks_mockup.png)
 
 
-Additionally some modals/popup windows are used to perform actions like:
+Additionally, some modals/popup windows are used to perform actions like:
 - Edit the Status of a Task
 - Add an Issue or Alert sign on the Task
 - Update any of the fields of the Task
 
-These actions can be activated by clicking on the menu-dots item on the right hand side of each Task.
+These actions can be activated by clicking on the menu-dots item on the right-hand side of each Task.
 
 
 
@@ -118,7 +118,7 @@ In the future, and as part of the final project of the course, user authenticati
         - Links and buttons are working
         - Popup windows and its contents are opening correctly
         - Popup windows are performing the intended actions
-        - Datatables functionality like Search, Sort, Pagination and Table wrapping is working correctly
+        - DataTables functionality like Search, Sort, Pagination and Table wrapping is working correctly
     - Data entry and editing
         - Added several tasks using major browsers
         - Added tasks with empty fields for validation
@@ -141,10 +141,10 @@ In the future, and as part of the final project of the course, user authenticati
 4. Install Python packages from ```requirements.txt``` file. From Terminal type ```pip install -r requirements.txt```
 5. Install the MongoDB client. From Terminal type ```wget -q https://git.io/fh7vV -O /tmp/setupmongodb.sh && source /tmp/setupmongodb.sh```
 6. Create a MongoDB Atlas account, get the URI connection string to connect to Mongo Shell and test the connection
-7. Add the connection string as enviroment variable in file ```.bashrc``` with the name ```MONGO_URI```
-8. Create the following Collections in the MongoDB Atlas
+7. Add the connection string as environment variable in file ```.bashrc``` with the name ```MONGO_URI```
+8. Create the following collections in MongoDB Atlas
     - ```task_category``` with a single field name ```category```. 
-        - Add any categoy names you like plus the default value ```Undefined```
+        - Add any category names you like plus the default value ```Undefined```
     - ```task_importance``` with two fields named ```importance``` and ```order```. 
         - Add any levels of task importance you like with their associated order 
         - Make sure you add the default value ```Low``` with order ```1```, which will be the lowest level of importance
@@ -158,7 +158,7 @@ In the future, and as part of the final project of the course, user authenticati
 
 ### Deploy in Heroku
 0. If previous steps ran successfully, to deploy the app in Heroku do the following
-1. Create an account in heroku
+1. Create an account in Heroku
 2. Create an app
 3. In the Settings section of the app set the following environmental variables:
     - ```IP``` set to ```0.0.0.0```
