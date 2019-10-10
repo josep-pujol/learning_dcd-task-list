@@ -1,12 +1,14 @@
+
 # Work Force Management (Part 1)
 
 [![Build Status](https://travis-ci.com/josep-pujol/learning_dcd-workforce-management.svg?token=mpvYNnPLPqbCpUvpUExD&branch=master)](https://travis-ci.com/josep-pujol/learning_dcd-workforce-management)
 
 This repo contains a solution code for the milestone project of the *Data Centric Development* module at Code Institute.
 
-Consists on a "Tasks List" application in which users can store and manage tasks. This is the first part of a bigger project which will use this app for groups of users etc. that will be the final project at Code Institute.
+Consists on a "Tasks List" application in which users can store and manage tasks. This is the first part of a bigger project which will use this app for multiple users, groups of users etc. that will be the final project at Code Institute.
 
 A demo of the app can be viewed [HERE](https://dcd-workforce-management.herokuapp.com/)
+
 
 
 
@@ -16,23 +18,24 @@ The app will consist on three main pages:
 
 - Main page to display all Tasks to be done
 
-![Main page or Tasks page](https://github.com/josep-pujol/learning_dcd-workforce-management/blob/master/wireframes/tasks_mockup.png)
+    ![Main page or Tasks page](https://github.com/josep-pujol/learning_dcd-workforce-management/blob/master/wireframes/tasks_mockup.png)
 
 - Pages to add and edit a single Task
 
-![Add Task](https://github.com/josep-pujol/learning_dcd-workforce-management/blob/master/wireframes/add_task_mockup.png)
+    ![Add Task](https://github.com/josep-pujol/learning_dcd-workforce-management/blob/master/wireframes/add_task_mockup.png)
 
 - Page to display completed Tasks
 
-![Completed Tasks](https://github.com/josep-pujol/learning_dcd-workforce-management/blob/master/wireframes/completed_tasks_mockup.png)
+    ![Completed Tasks](https://github.com/josep-pujol/learning_dcd-workforce-management/blob/master/wireframes/completed_tasks_mockup.png)
 
 
 Additionally some modals/popup windows are used to perform actions like:
-    - Edit the Status of a Task
-    - Add an Issue or Alert sign on the Task
-    - Update any of the fields of the Task
+- Edit the Status of a Task
+- Add an Issue or Alert sign on the Task
+- Update any of the fields of the Task
 
-Those actions can be activated by clicking on the menu-dots item on the right hand side of each Task.
+These actions can be activated by clicking on the menu-dots item on the right hand side of each Task.
+
 
 
 
@@ -67,10 +70,12 @@ Those actions can be activated by clicking on the menu-dots item on the right ha
     - Add a text description
     - Select the "Due Date" of the Task from a Calendar popup window; with validation
     - Select the "Task Importance" from the dropdown menu or leave default option 
- 
+
+
 
 ### Features Left to Implement
 In the future, and as part of the final project of the course, user authentication, groups and premium functionality will be added.
+
 
 
 
@@ -99,21 +104,22 @@ In the future, and as part of the final project of the course, user authenticati
 
 
 
+
 ## Testing
 - Python Unit tests with over 90% coverage, including:
     - Page rendering
     - CRUD operations
    
 - All code used on this site has been manually tested to ensure everything is working as expected. Some tests include:
-    - Site responsiveness from small mobile up to 17'' desktop screens
-    - Content is displayed correctly for screens of small mobiles to 17'' desktop screens
+    - Site responsiveness from small mobile up to 17" desktop screens
+    - Content is displayed correctly for screens of small mobiles to 17" desktop screens
     - Functionality:
         - Loading all pages
         - Links and buttons are working
         - Popup windows and its contents are opening correctly
         - Popup windows are performing the intended actions
         - Datatables functionality like Search, Sort, Pagination and Table wrapping is working correctly
-    - Data entry or editing
+    - Data entry and editing
         - Added several tasks using major browsers
         - Added tasks with empty fields for validation
         - Added tasks with empty fields to test default values
@@ -121,6 +127,7 @@ In the future, and as part of the final project of the course, user authenticati
   - Google Chrome
   - Microsoft Edge
   - Mozilla Firefox
+
 
 
 
@@ -148,6 +155,7 @@ In the future, and as part of the final project of the course, user authenticati
 9. To ensure all is working properly, run the Unit tests from Terminal, type ```python3 -m unittest discover```
 
 
+
 ### Deploy in Heroku
 0. If previous steps ran successfully, to deploy the app in Heroku do the following
 1. Create an account in heroku
@@ -155,7 +163,7 @@ In the future, and as part of the final project of the course, user authenticati
 3. In the Settings section of the app set the following environmental variables:
     - ```IP``` set to ```0.0.0.0```
     - ```PORT``` set to ```5000```
-    - ```MONGO_URI``` set to the value of previous section
+    - ```MONGO_URI``` set to the value from previous section
 4. Install Heroku in your system. From Terminal type ```sudo snap install --classic heroku```
 4. Back in the Heroku website go to the Deploy section and connect your repository with Heroku
 5. Select the option "Manual Deploy"
@@ -163,5 +171,9 @@ In the future, and as part of the final project of the course, user authenticati
 7. If issues, please have a look at the deployment logs in Heroku
 
 
+
+
 ## Credits
 Inspired by the [Materialize](https://materializecss.com) admin dashboards built by [Pixinvent.com](https://pixinvent.com/materialize-material-design-admin-template/html/ltr/vertical-modern-menu-template/)
+
+
