@@ -50,6 +50,7 @@ def insert_new_task():
     tasks = mongo.db.tasks
     form_res = request.form.to_dict()
     
+    # Set default items if left empty
     if not form_res.get('tsk_category'):
         form_res['tsk_category'] = 'Undefined'
     
@@ -67,7 +68,6 @@ def insert_new_task():
         'tsk_due_date': form_res.get('tsk_due_date'),
         'tsk_importance': form_res.get('tsk_importance'),
         'tsk_issue': False,
-        'tsk_notes': [],
     }
     tasks.insert_one(task_to_add)
     
@@ -99,7 +99,6 @@ def update_task(task_id):
                          'tsk_due_date': request.form.get('tsk_due_date'),
                          'tsk_importance': request.form.get('tsk_importance'),
                          'tsk_issue': task.get('tsk_issue'),
-                         'tsk_notes': task.get('tsk_notes'),
                      }}
                      )
     

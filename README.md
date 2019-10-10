@@ -18,7 +18,7 @@ A demo of the site can be viewed [HERE](https://dcd-workforce-management.herokua
 - [Materialize](https://materializecss.com)
     - Used **Materialize 1.0.0** for a responsive layout and styling
 - [DataTables](https://datatables.net)
-    - Plugin for **jQuery** that adds interactive features to data stored in an **HTML** table
+    - Plugin for **jQuery** that adds interactive features to data stored in **HTML** tables
 - [JQuery](https://jquery.com)
     - **JQuery** as a dependency for **DataTables**
 - [Github](https://github.com)
@@ -26,7 +26,7 @@ A demo of the site can be viewed [HERE](https://dcd-workforce-management.herokua
 - [Heroku](https://heroku.com)
     - To deploy the project
 - [Travis](https://travis-ci.org/)
-    - Continuous integration
+    - Continuous integration and testing
 
 
 
