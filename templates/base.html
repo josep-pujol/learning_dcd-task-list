@@ -9,16 +9,14 @@
     <!--Import Google Icon Font-->
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <!--Import materialize.css-->
-    <link type="text/css" rel="stylesheet" href="../static/css/materialize.min.css" media="screen,projection">
+    <link type="text/css" rel="stylesheet" href="../static/css/materialize.min.css">
     
     {% block css %}
     {% endblock %}
     
     <!--Custom Styles-->
     <link type="text/css" rel="stylesheet" href="../static/css/styles.css">
-    
 </head>
-
 <body>
     <header>
         <!--Navbar-->
@@ -39,27 +37,23 @@
             </ul>
         </div>
     </header> 
-    
     <div class="container">
         {% block content %}
         {% endblock %}
     </div>
 
-    
     <!--JavaScript at end of body for optimized loading-->
-    <script type="text/javascript" src="../static/js/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="../static/js/materialize.min.js"></script>
+    <script src="../static/js/jquery-3.3.1.min.js"></script>
+    <script src="../static/js/materialize.min.js"></script>
     
     <!--Initialize side Navbar for small screens-->
-    <script type="text/javascript">
+    <script>
         document.addEventListener('DOMContentLoaded', function() {
             var elems_sn = document.querySelectorAll('.sidenav');
             var instances_sn = M.Sidenav.init(elems_sn);
         });
     </script>
-    
     {% block js %}
     {% endblock %}
-
 </body>
 </html>

@@ -14,28 +14,31 @@ mongo = PyMongo(app)
 @app.route('/')
 @app.route('/tasks')
 def render_tasks_table():
-    tasks_order=list(mongo.db.task_importance.find())
-    imp_order = {item.get('tsk_importance'): item.get('order') for item in tasks_order}
-
-    return render_template('tasks_table.html', 
-        tasks=mongo.db.tasks.find({'tsk_status': {'$ne': 'Completed'}}),
-        statuses=mongo.db.task_status.find(),
-        imp_order=imp_order, )
+    tasks_order = list(mongo.db.task_importance.find())
+    imp_order = {
+        item.get('tsk_importance'): item.get('order') for item in tasks_order}
+    
+    return render_template('tasks_table.html',
+                           tasks=mongo.db.tasks.find(
+                               {'tsk_status': {'$ne': 'Completed'}}),
+                           statuses=mongo.db.task_status.find(),
+                           imp_order=imp_order, )
 
 
 @app.route('/completed-tasks')
 def render_completed_tasks_table():
-    tasks_order=list(mongo.db.task_importance.find())
-    imp_order = {item.get('tsk_importance'): item.get('order') for item in tasks_order}
+    tasks_order = list(mongo.db.task_importance.find())
+    imp_order = {
+        item.get('tsk_importance'): item.get('order') for item in tasks_order}
     
-    return render_template('completed_tasks_table.html', 
-        tasks=mongo.db.tasks.find({'tsk_status': 'Completed'}),
-        imp_order=imp_order, )
+    return render_template('completed_tasks_table.html',
+                           tasks=mongo.db.tasks.find(
+                               {'tsk_status': 'Completed'}),
+                           imp_order=imp_order, )
 
 
 @app.route('/add-task')
 def render_add_task():
-    
     return render_template('add_task.html',
                            categories=mongo.db.task_category.find(),
                            statuses=mongo.db.task_status.find(),
@@ -65,8 +68,7 @@ def insert_new_task():
         'tsk_importance': form_res.get('tsk_importance'),
         'tsk_issue': False,
         'tsk_notes': [],
-         }
-    
+    }
     tasks.insert_one(task_to_add)
     
     return redirect(url_for('render_tasks_table'))
@@ -75,7 +77,6 @@ def insert_new_task():
 @app.route('/edit-task/<task_id>')
 def render_edit_task(task_id):
     task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
-    print('\ntask', task)
     
     return render_template('edit_task.html',
                            task=task,
@@ -85,7 +86,7 @@ def render_edit_task(task_id):
                            )
 
 
-@app.route('/update-task/<task_id>', methods=['POST',])
+@app.route('/update-task/<task_id>', methods=['POST', ])
 def update_task(task_id):
     tasks = mongo.db.tasks
     task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
@@ -99,7 +100,7 @@ def update_task(task_id):
                          'tsk_importance': request.form.get('tsk_importance'),
                          'tsk_issue': task.get('tsk_issue'),
                          'tsk_notes': task.get('tsk_notes'),
-                      }}
+                     }}
                      )
     
     return redirect(url_for('render_tasks_table'))
@@ -110,11 +111,11 @@ def toggle_issue_sign():
     task_id = request.form.get('taskId')
     task = mongo.db.tasks.find_one_or_404({'_id': ObjectId(task_id)})
     if task.get('tsk_issue'):
-        mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
-            {'$set': {'tsk_issue': False}})
+        mongo.db.tasks.update_one({'_id': ObjectId(task_id)},
+                                  {'$set': {'tsk_issue': False}})
     else:
-        mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
-            {'$set': {'tsk_issue': True}})
+        mongo.db.tasks.update_one({'_id': ObjectId(task_id)},
+                                  {'$set': {'tsk_issue': True}})
     
     return redirect(url_for('render_tasks_table'))
 
@@ -123,21 +124,19 @@ def toggle_issue_sign():
 def edit_status():
     task_id = request.form.get('taskId')
     task_status = request.form.get('tsk_status')
-
     if task_status == 'Completed':
         timestamp = datetime.datetime.utcnow().strftime('%b %d, %Y')
-        res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
-            {'$set': 
-                {'tsk_completed_date': timestamp,
-                 'tsk_status': task_status,    
-                }
-            })
+        mongo.db.tasks.update_one({'_id': ObjectId(task_id)},
+                                  {'$set': {
+                                            'tsk_completed_date': timestamp,
+                                            'tsk_status': task_status,
+                                            }
+                                   })
     else:
-        res = mongo.db.tasks.update_one({'_id': ObjectId(task_id)}, 
-            {'$set': {'tsk_status': task_status, }})
-
-    return redirect(url_for('render_tasks_table'))    
-
+        mongo.db.tasks.update_one({'_id': ObjectId(task_id)},
+                                  {'$set': {'tsk_status': task_status, }})
+    
+    return redirect(url_for('render_tasks_table'))
 
 
 if __name__ == '__main__':

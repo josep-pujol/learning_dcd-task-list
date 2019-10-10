@@ -1,6 +1,5 @@
 {% extends 'base.html' %}
 
-
 {% block css %}
 <!--DataTables CSS-->
 <link rel="stylesheet" type="text/css" href="../static/css/material.min.css">
@@ -8,18 +7,15 @@
 <link rel="stylesheet" type="text/css" href="../static/css/responsive.dataTables.min.css">
 {% endblock %} 
 
-
 {% block content %}
 <!-- Main body-->
 <div class="row">
     <div class="col s12">
-
         <!--Table inside a card-->
         <div class="card-panel">
             <div class="row col s12">
                 <h2 class="section-title">Tasks</h2>
             </div>
-            
             <!-- TABLE -->
             <div class="dataTables_wrapper">
                 <table id="tasksTable" class="highlight compact">
@@ -61,7 +57,6 @@
                                 <a class="dropdown-trigger" href="#" data-target="{{ 'dropdown' ~ loop.index }}">
                                     <i class="material-icons menu-dots">more_vert</i>
                                 </a>
-    
                                 <!-- Dropdown Structure -->
                                 <ul id="{{ 'dropdown' ~ loop.index}}" class="dropdown-content">
                                     <!-- Mark Done Modal Trigger -->
@@ -79,9 +74,7 @@
                         </tr>
                         {% endfor %}
 
-
                         <!-- MODALS -->
-
                         <!-- Edit Status Modal Structure -->
                         <div id="CreateEditStatusModalForm" class="modal">
                             <div class="modal-content">
@@ -103,7 +96,6 @@
                                 </form>
                             </div>
                         </div>
-
                         <!-- Issue Sign Modal Structure -->
                         <div id="CreateIssuesModalForm" class="modal">
                             <div class="modal-content">
@@ -118,21 +110,15 @@
                                 </form>
                             </div>
                         </div>
-
                         <!-- END MODALS -->
-                        
                     </tbody>
                 </table>
             </div>
-            
             <!-- END TABLE -->
-            
         </div>
         <!--End table card-->
     </div>
 </div>
-
-
 <!--Floating Button to Add Tasks-->
 <div class="fixed-action-btn">
     <a class="btn-floating btn-large tooltipped gradient-45deg-light-blue-cyan gradient-shadow" data-position="left" data-tooltip="Click to add Tasks"  href="{{url_for('render_add_task')}}">
@@ -141,16 +127,14 @@
 </div>
 {% endblock %} 
 
-
-
 <!--SCRIPTS-->
 {% block js %}
-<script type="text/javascript" src="../static/js/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="../static/js/dataTables.material.min.js"></script>
-<script type="text/javascript" src="../static/js/dataTables.responsive.min.js"></script>
+<script src="../static/js/jquery.dataTables.min.js"></script>
+<script src="../static/js/dataTables.material.min.js"></script>
+<script src="../static/js/dataTables.responsive.min.js"></script>
 
 <!--Materialize Initialization-->
-<script type="text/javascript">
+<script>
     document.addEventListener('DOMContentLoaded', function() {
         var elems_dd = document.querySelectorAll('.dropdown-trigger');
         var instances_dd = M.Dropdown.init(elems_dd);
@@ -162,26 +146,21 @@
 </script>
 
 <!--Initialize and set options for Modals and DataTables-->
-<script type="text/javascript">
+<script>
     $(document).ready(function() {
-        
         // Modals
         $(".modal").modal({
             dismissible: true
         });
-        
         $(".triggerEditStatusModal").click(function() {
             $(".modal-footer #taskId").val($(this).data("id"));
             $('#CreateEditStatusModalForm').modal("open");
         });
-        
         $("select").formSelect();
-
         $(".triggerIssuesModal").click(function() {
             $(".modal-footer #taskId").val($(this).data("id"));
             $('#CreateIssuesModalForm').modal("open");
         });
-        
         
         // DataTables
         // Needs to be placed after the modals otherwise it doesn't pick up the right row on second page

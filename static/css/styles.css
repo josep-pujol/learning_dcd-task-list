@@ -94,7 +94,9 @@ body
 }
 
 
+
 /* Pagination buttons */
+
 .mdl-button--raised.mdl-button--colored
 {
     background-color: #26a69a;
@@ -104,6 +106,7 @@ body
 {    
     background-color: #00897b;
 }
+
 
 
 /* Fixed/Action Button */
@@ -128,6 +131,7 @@ body
 }
 
 
+
 /* Drop down menu in each row */
 
 .menu-dots 
@@ -144,6 +148,7 @@ body
 {
     min-width: fit-content;
 }
+
 
 
 /* Navbar */
@@ -163,4 +168,3 @@ nav .brand-logo
     padding-left: 10px;
     padding-right: 10px;
 }
-
