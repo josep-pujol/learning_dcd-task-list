@@ -1,5 +1,5 @@
 
-# Task List (Part 1)
+# Task List
 
 [![Build Status](https://travis-ci.org/josep-pujol/learning_dcd-task-list.svg?branch=master)](https://travis-ci.org/josep-pujol/learning_dcd-task-list)
 
