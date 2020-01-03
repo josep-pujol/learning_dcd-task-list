@@ -1,7 +1,7 @@
 
 # Task List (Part 1)
 
-[![Build Status](https://travis-ci.com/josep-pujol/learning_dcd-workforce-management.svg?token=mpvYNnPLPqbCpUvpUExD&branch=master)](https://travis-ci.com/josep-pujol/learning_dcd-workforce-management)
+[![Build Status](https://travis-ci.org/josep-pujol/learning_dcd-task-list.svg?branch=master)](https://travis-ci.org/josep-pujol/learning_dcd-task-list)
 
 This repo contains a solution code for the milestone project of the *Data Centric Development* module at Code Institute.
 
