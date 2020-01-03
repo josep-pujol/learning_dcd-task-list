@@ -1,5 +1,5 @@
 
-# Work Force Management (Part 1)
+# Task List (Part 1)
 
 [![Build Status](https://travis-ci.com/josep-pujol/learning_dcd-workforce-management.svg?token=mpvYNnPLPqbCpUvpUExD&branch=master)](https://travis-ci.com/josep-pujol/learning_dcd-workforce-management)
 
@@ -7,7 +7,7 @@ This repo contains a solution code for the milestone project of the *Data Centri
 
 Consists on a "Tasks List" application in which users can store and manage tasks. This is the first part of a bigger project which will use this app for multiple users, groups of users etc. and that will be the final project at Code Institute.
 
-A demo of the app can be viewed [HERE](https://dcd-workforce-management.herokuapp.com/)
+A demo of the app can be viewed [HERE](https://dcd-task-list.herokuapp.com//)
 
 
 
@@ -18,15 +18,15 @@ The app consists of three main pages:
 
 - Main page to display all Tasks to be done
 
-    ![Main page or Tasks page](https://github.com/josep-pujol/learning_dcd-workforce-management/blob/master/wireframes/tasks_mockup.png)
+    ![Main page or Tasks page](https://github.com/josep-pujol/learning_dcd-task-list/blob/master/wireframes/tasks_mockup.png)
 
 - Pages to add and edit a single Task
 
-    ![Add Task](https://github.com/josep-pujol/learning_dcd-workforce-management/blob/master/wireframes/add_task_mockup.png)
+    ![Add Task](https://github.com/josep-pujol/learning_dcd-task-list/blob/master/wireframes/add_task_mockup.png)
 
 - Page to display completed Tasks
 
-    ![Completed Tasks](https://github.com/josep-pujol/learning_dcd-workforce-management/blob/master/wireframes/completed_tasks_mockup.png)
+    ![Completed Tasks](https://github.com/josep-pujol/learning_dcd-task-list/blob/master/wireframes/completed_tasks_mockup.png)
 
 
 Additionally, some modals/popup windows are used to perform actions like:
